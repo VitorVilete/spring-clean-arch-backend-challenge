@@ -1,8 +1,8 @@
 package br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts;
 
-import br.com.vilevidya.backendchallenge.domain.entity.InsuranceType.InsuranceType;
+import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-public record InsuranceProduct(InsuranceType insuranceType, String name, float basePrice, float taxedPrice) {
+public record InsuranceProduct(InsuranceType insuranceType, String name, BigDecimal basePrice, BigDecimal taxedPrice) {
 }
