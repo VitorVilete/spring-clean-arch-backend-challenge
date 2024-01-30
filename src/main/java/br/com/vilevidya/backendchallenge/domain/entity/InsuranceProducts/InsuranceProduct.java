@@ -4,5 +4,5 @@ import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceT
 
 import java.math.BigDecimal;
 
-public record InsuranceProduct(InsuranceType insuranceType, Long id, String name, BigDecimal basePrice, BigDecimal taxedPrice) {
+public record InsuranceProduct(InsuranceType insuranceType, String name, BigDecimal basePrice, BigDecimal taxedPrice) {
 }

@@ -1,7 +1,9 @@
 package br.com.vilevidya.backendchallenge.presentation.controllers;
 
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
+import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
+import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
@@ -11,19 +13,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("produtos")
 public class InsuranceProductController {
     private final IInsuranceProductGateway insuranceProductGateway;
-    private final InsuranceProductDTOMapper InsuranceProductDTOMapper;
+    private final IInsuranceTypeGateway insuranceTypeGateway;
+    private final InsuranceProductDTOMapper insuranceProductDTOMapper;
 
-    public InsuranceProductController(IInsuranceProductGateway insuranceProductGateway, br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper insuranceProductDTOMapper) {
+    public InsuranceProductController(IInsuranceProductGateway insuranceProductGateway, IInsuranceTypeGateway insuranceTypeGateway, br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper insuranceProductDTOMapper) {
         this.insuranceProductGateway = insuranceProductGateway;
-        InsuranceProductDTOMapper = insuranceProductDTOMapper;
+        this.insuranceTypeGateway = insuranceTypeGateway;
+        this.insuranceProductDTOMapper = insuranceProductDTOMapper;
     }
 
     @PutMapping
     PutInsuranceProductResponse create(@RequestBody PutInsuranceProductRequest request){
-        InsuranceProduct insuranceProductObject = InsuranceProductDTOMapper.toInsuranceProduct(request);
+        InsuranceType insuranceTypeObject = insuranceTypeGateway.findInsuranceProductByName(request.nome());
+        InsuranceProduct insuranceProductObject = insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(request, insuranceTypeObject);
+        //TODO: implement tax formula before saving the InsuranceProduct
         InsuranceProduct insuranceProduct =  insuranceProductGateway.createInsuranceProduct(insuranceProductObject);
 
-        return InsuranceProductDTOMapper.toResponse(insuranceProduct);
+        return insuranceProductDTOMapper.toResponse(insuranceProduct);
     }
 
 }
