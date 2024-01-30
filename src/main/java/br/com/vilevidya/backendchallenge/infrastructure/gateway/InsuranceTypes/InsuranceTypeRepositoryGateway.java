@@ -1,15 +1,16 @@
 package br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceTypes;
 
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
-import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
-import br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceProducts.InsuranceProductEntityMapper;
-import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntity;
-import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductRepository;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeEntity;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
+
+    private static final Logger log = LoggerFactory.getLogger(InsuranceTypeRepositoryGateway.class);
+
     private final InsuranceTypeRepository insuranceTypeRepository;
     private final InsuranceTypeEntityMapper insuranceProductEntityMapper;
 
@@ -21,7 +22,10 @@ public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
 
     @Override
     public InsuranceType findInsuranceTypeByName(String insuranceTypeName) {;
+        log.info("method=findInsuranceTypeByName, step=starting, name={}", insuranceTypeName);
         InsuranceTypeEntity foundObject = insuranceTypeRepository.findByName(insuranceTypeName);
-        return insuranceProductEntityMapper.toDomainObject(foundObject);
+        InsuranceType result = insuranceProductEntityMapper.toDomainObject(foundObject);
+        log.info("method=findInsuranceTypeByName, step=finished, result={}", result);
+        return result;
     }
 }

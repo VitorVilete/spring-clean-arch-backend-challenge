@@ -3,10 +3,10 @@ package br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes;
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 
-public class FindInsuranceTypeUseCase {
+public class FindInsuranceTypeByNameUseCase {
     private final IInsuranceTypeGateway IInsuranceTypeGateway;
 
-    public FindInsuranceTypeUseCase(IInsuranceTypeGateway IInsuranceTypeGateway) {
+    public FindInsuranceTypeByNameUseCase(IInsuranceTypeGateway IInsuranceTypeGateway) {
         this.IInsuranceTypeGateway = IInsuranceTypeGateway;
     }
 

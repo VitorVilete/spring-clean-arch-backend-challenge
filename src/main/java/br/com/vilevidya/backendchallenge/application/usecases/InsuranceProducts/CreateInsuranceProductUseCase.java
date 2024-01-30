@@ -2,6 +2,8 @@ package br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts
 
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CreateInsuranceProductUseCase {
     // Dependency injection
