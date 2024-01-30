@@ -32,10 +32,10 @@ public class InsuranceProductController {
         return insuranceProductDTOMapper.toResponse(insuranceProduct);
     }
 
-    private Number calculateTaxes(InsuranceProduct insuranceProduct){
-        Number result;
-        if (insuranceProduct.getTaxedPrice() == null){
-            double basePrice = insuranceProduct.getBasePrice().doubleValue();
+    private double calculateTaxes(InsuranceProduct insuranceProduct){
+        double result;
+        if (insuranceProduct.getTaxedPrice() == 0){
+            double basePrice = insuranceProduct.getBasePrice();
             InsuranceType insuranceType = insuranceProduct.getInsuranceType();
 
             result = basePrice +

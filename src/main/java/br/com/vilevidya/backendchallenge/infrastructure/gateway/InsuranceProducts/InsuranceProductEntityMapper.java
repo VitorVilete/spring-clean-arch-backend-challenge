@@ -13,8 +13,8 @@ public class InsuranceProductEntityMapper {
         return new InsuranceProductEntity(
                 insuranceProductDomainObject.getName(),
                 insuranceProductDomainObject.getInsuranceType().name(),
-                BigDecimal.valueOf(insuranceProductDomainObject.getBasePrice().doubleValue()),
-                insuranceProductDomainObject.getTaxedPrice() != null ? BigDecimal.valueOf(insuranceProductDomainObject.getTaxedPrice().doubleValue()) : null
+                BigDecimal.valueOf(insuranceProductDomainObject.getBasePrice()),
+                BigDecimal.valueOf(insuranceProductDomainObject.getTaxedPrice())
         );
     }
     InsuranceProduct toDomainObject(InsuranceProductEntity insuranceProductEntity){
@@ -22,8 +22,8 @@ public class InsuranceProductEntityMapper {
         return new InsuranceProduct(
                 new InsuranceType(insuranceProductEntity.getCategory(), 0,0,0),
                 insuranceProductEntity.getName(),
-                insuranceProductEntity.getBasePrice(),
-                insuranceProductEntity.getTaxedPrice()
+                insuranceProductEntity.getBasePrice().doubleValue(),
+                insuranceProductEntity.getTaxedPrice().doubleValue()
         );
     }
 

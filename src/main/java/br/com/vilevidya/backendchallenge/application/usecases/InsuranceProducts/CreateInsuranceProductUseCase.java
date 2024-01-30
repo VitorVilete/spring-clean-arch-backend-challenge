@@ -5,7 +5,7 @@ import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProduct
 
 public class CreateInsuranceProductUseCase {
     // Dependency injection
-    private IInsuranceProductGateway IInsuranceProductGateway;
+    private final IInsuranceProductGateway IInsuranceProductGateway;
 
     public CreateInsuranceProductUseCase(IInsuranceProductGateway IInsuranceProductGateway) {
         this.IInsuranceProductGateway = IInsuranceProductGateway;

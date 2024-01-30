@@ -3,8 +3,6 @@ package br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProduc
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 
-import java.math.BigDecimal;
-
 public class InsuranceProductDTOMapper {
     public PutInsuranceProductResponse toResponse(InsuranceProduct insuranceProduct){
         return new PutInsuranceProductResponse(
@@ -21,8 +19,8 @@ public class InsuranceProductDTOMapper {
         return new InsuranceProduct(
                 new InsuranceType(request.categoria(), 0, 0, 0),
                 request.nome(),
-                request.preco_base(),
-                request.preco_tarifado() != null ? request.preco_tarifado() : null
+                request.preco_base().doubleValue(),
+                request.preco_tarifado() != null ? request.preco_tarifado().doubleValue() : 0
                 );
     }
 
@@ -30,8 +28,8 @@ public class InsuranceProductDTOMapper {
         return new InsuranceProduct(
                 insuranceType,
                 request.nome(),
-                request.preco_base(),
-                request.preco_tarifado() != null ? request.preco_tarifado() : null
+                request.preco_base().doubleValue(),
+                request.preco_tarifado() != null ? request.preco_tarifado().doubleValue() : 0
         );
     }
 }

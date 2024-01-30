@@ -2,13 +2,12 @@ package br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts;
 
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 
-import java.math.BigDecimal;
 
 public class InsuranceProduct {
     InsuranceType insuranceType;
     String name;
-    Number basePrice;
-    Number taxedPrice;
+    double basePrice;
+    double taxedPrice;
 
     public InsuranceType getInsuranceType() {
         return insuranceType;
@@ -26,23 +25,23 @@ public class InsuranceProduct {
         this.name = name;
     }
 
-    public Number getBasePrice() {
+    public double getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(Number basePrice) {
+    public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
 
-    public Number getTaxedPrice() {
+    public double getTaxedPrice() {
         return taxedPrice;
     }
 
-    public void setTaxedPrice(Number taxedPrice) {
+    public void setTaxedPrice(double taxedPrice) {
         this.taxedPrice = taxedPrice;
     }
 
-    public InsuranceProduct(InsuranceType insuranceType, String name, Number basePrice, Number taxedPrice) {
+    public InsuranceProduct(InsuranceType insuranceType, String name, double basePrice, double taxedPrice) {
         this.insuranceType = insuranceType;
         this.name = name;
         this.basePrice = basePrice;
