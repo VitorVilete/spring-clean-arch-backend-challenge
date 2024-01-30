@@ -1,12 +1,14 @@
 package br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts;
 
-import jakarta.persistence.Column;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "INSURANCE_PRODUCT")
 public class InsuranceProductEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     @Column(name = "NAME")

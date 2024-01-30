@@ -5,23 +5,21 @@ import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.Insuran
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntity;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductRepository;
 
-import java.math.BigDecimal;
-
 public class InsuranceProductRepositoryGateway implements IInsuranceProductGateway {
     // Dependency Injection
     private final InsuranceProductRepository insuranceProductRepository;
-    private final InsuranceProductMapper insuranceProductMapper;
+    private final InsuranceProductEntityMapper insuranceProductEntityMapper;
 
-    public InsuranceProductRepositoryGateway(InsuranceProductRepository insuranceProductRepository, InsuranceProductMapper insuranceProductMapper) {
+    public InsuranceProductRepositoryGateway(InsuranceProductRepository insuranceProductRepository, InsuranceProductEntityMapper insuranceProductEntityMapper) {
         this.insuranceProductRepository = insuranceProductRepository;
-        this.insuranceProductMapper = insuranceProductMapper;
+        this.insuranceProductEntityMapper = insuranceProductEntityMapper;
     }
 
     @Override
     public InsuranceProduct createInsuranceProduct(InsuranceProduct insuranceProductDomainObject) {
-        InsuranceProductEntity insuranceProductEntity = insuranceProductMapper.toEntity(insuranceProductDomainObject);
+        InsuranceProductEntity insuranceProductEntity = insuranceProductEntityMapper.toEntity(insuranceProductDomainObject);
         InsuranceProductEntity savedObject = insuranceProductRepository.save(insuranceProductEntity);
-        return insuranceProductMapper.toDomainObject(savedObject);
+        return insuranceProductEntityMapper.toDomainObject(savedObject);
 
     }
 }
