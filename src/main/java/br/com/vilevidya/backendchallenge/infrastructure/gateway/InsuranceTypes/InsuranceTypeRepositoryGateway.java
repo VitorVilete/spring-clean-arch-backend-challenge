@@ -20,7 +20,7 @@ public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
 
 
     @Override
-    public InsuranceType findInsuranceProductByName(String insuranceTypeName) {;
+    public InsuranceType findInsuranceTypeByName(String insuranceTypeName) {;
         InsuranceTypeEntity foundObject = insuranceTypeRepository.findByName(insuranceTypeName);
         return insuranceProductEntityMapper.toDomainObject(foundObject);
     }

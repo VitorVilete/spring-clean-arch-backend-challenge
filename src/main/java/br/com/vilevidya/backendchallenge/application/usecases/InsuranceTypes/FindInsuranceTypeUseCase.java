@@ -10,7 +10,7 @@ public class FindInsuranceTypeUseCase {
         this.IInsuranceTypeGateway = IInsuranceTypeGateway;
     }
 
-    public InsuranceType findInsuranceProductByName(String insuranceType){
-        return IInsuranceTypeGateway.findInsuranceProductByName(insuranceType);
+    public InsuranceType findInsuranceTypeByName(String insuranceType){
+        return IInsuranceTypeGateway.findInsuranceTypeByName(insuranceType);
     }
 }
