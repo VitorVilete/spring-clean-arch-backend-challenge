@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS INSURANCE_PRODUCT (
 
 CREATE TABLE IF NOT EXISTS INSURANCE_TYPE (
     NAME varchar(255) primary key,
-    IOF_TAX_VALUE decimal(11, 2),
-    PIS_TAX_VALUE decimal(11, 2),
-    COFINS_TAX_VALUE decimal(11, 2)
+    IOF_TAX_VALUE decimal(11, 5),
+    PIS_TAX_VALUE decimal(11, 5),
+    COFINS_TAX_VALUE decimal(11, 5)
 );

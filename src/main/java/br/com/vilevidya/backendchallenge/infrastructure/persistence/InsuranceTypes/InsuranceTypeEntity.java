@@ -11,13 +11,13 @@ public class InsuranceTypeEntity {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "IOF_TAX_VALUE", precision = 11, scale = 2)
+    @Column(name = "IOF_TAX_VALUE", precision = 11, scale = 5)
     private BigDecimal iofTaxValue;
 
-    @Column(name = "PIS_TAX_VALUE", precision = 11, scale = 2)
+    @Column(name = "PIS_TAX_VALUE", precision = 11, scale = 5)
     private BigDecimal pisTaxValue;
 
-    @Column(name = "COFINS_TAX_VALUE", precision = 11, scale = 2)
+    @Column(name = "COFINS_TAX_VALUE", precision = 11, scale = 5)
     private BigDecimal cofinsTaxValue;
 
     public String getName() {

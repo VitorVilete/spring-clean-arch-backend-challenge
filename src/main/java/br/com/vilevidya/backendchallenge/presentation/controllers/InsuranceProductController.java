@@ -33,18 +33,19 @@ public class InsuranceProductController {
     }
 
     private Number calculateTaxes(InsuranceProduct insuranceProduct){
+        Number result;
         if (insuranceProduct.getTaxedPrice() == null){
             double basePrice = insuranceProduct.getBasePrice().doubleValue();
             InsuranceType insuranceType = insuranceProduct.getInsuranceType();
 
-            return basePrice +
+            result = basePrice +
                     (basePrice * insuranceType.iofTaxValue().doubleValue()) +
                     (basePrice * insuranceType.pisTaxValue().doubleValue()) +
                     (basePrice * insuranceType.cofinsTaxValue().doubleValue());
         }else{
-            return insuranceProduct.getTaxedPrice();
+            result = insuranceProduct.getTaxedPrice();
         }
-
+        return result;
     }
 
 }
