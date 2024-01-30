@@ -1,5 +1,6 @@
 package br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts;
 
+import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeEntity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

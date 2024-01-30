@@ -24,12 +24,27 @@ public class InsuranceProductController {
 
     @PutMapping
     PutInsuranceProductResponse create(@RequestBody PutInsuranceProductRequest request){
-        InsuranceType insuranceTypeObject = insuranceTypeGateway.findInsuranceProductByName(request.nome());
+        InsuranceType insuranceTypeObject = insuranceTypeGateway.findInsuranceProductByName(request.categoria());
         InsuranceProduct insuranceProductObject = insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(request, insuranceTypeObject);
-        //TODO: implement tax formula before saving the InsuranceProduct
+        insuranceProductObject.setTaxedPrice(calculateTaxes(insuranceProductObject));
         InsuranceProduct insuranceProduct =  insuranceProductGateway.createInsuranceProduct(insuranceProductObject);
 
         return insuranceProductDTOMapper.toResponse(insuranceProduct);
+    }
+
+    private Number calculateTaxes(InsuranceProduct insuranceProduct){
+        if (insuranceProduct.getTaxedPrice() == null){
+            double basePrice = insuranceProduct.getBasePrice().doubleValue();
+            InsuranceType insuranceType = insuranceProduct.getInsuranceType();
+
+            return basePrice +
+                    (basePrice * insuranceType.iofTaxValue().doubleValue()) +
+                    (basePrice * insuranceType.pisTaxValue().doubleValue()) +
+                    (basePrice * insuranceType.cofinsTaxValue().doubleValue());
+        }else{
+            return insuranceProduct.getTaxedPrice();
+        }
+
     }
 
 }

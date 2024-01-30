@@ -10,19 +10,19 @@ public class InsuranceProductDTOMapper {
         return new PutInsuranceProductResponse(
                 // TODO: Return correlation-id for the id
                 123L,
-                insuranceProduct.name(),
-                insuranceProduct.insuranceType().name(),
-                insuranceProduct.basePrice(),
-                insuranceProduct.taxedPrice()
+                insuranceProduct.getName(),
+                insuranceProduct.getInsuranceType().name(),
+                insuranceProduct.getBasePrice(),
+                insuranceProduct.getTaxedPrice()
         );
     }
 
     public InsuranceProduct toInsuranceProduct(PutInsuranceProductRequest request){
         return new InsuranceProduct(
-                new InsuranceType(request.categoria(), null, null, null),
+                new InsuranceType(request.categoria(), 0, 0, 0),
                 request.nome(),
-                new BigDecimal(request.preco_base().toString()),
-                request.preco_tarifado() != null ? new BigDecimal(request.preco_tarifado().toString()) : null
+                request.preco_base(),
+                request.preco_tarifado() != null ? request.preco_tarifado() : null
                 );
     }
 
@@ -30,8 +30,8 @@ public class InsuranceProductDTOMapper {
         return new InsuranceProduct(
                 insuranceType,
                 request.nome(),
-                new BigDecimal(request.preco_base().toString()),
-                request.preco_tarifado() != null ? new BigDecimal(request.preco_tarifado().toString()) : null
+                request.preco_base(),
+                request.preco_tarifado() != null ? request.preco_tarifado() : null
         );
     }
 }

@@ -2,8 +2,11 @@ package br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceProduc
 
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
+import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntity;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductRepository;
+
+import java.math.BigDecimal;
 
 public class InsuranceProductRepositoryGateway implements IInsuranceProductGateway {
     // Dependency Injection

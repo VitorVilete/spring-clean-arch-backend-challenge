@@ -58,4 +58,7 @@ public class InsuranceTypeEntity {
         this.pisTaxValue = pisTaxValue;
         this.cofinsTaxValue = cofinsTaxValue;
     }
+
+    public InsuranceTypeEntity() {
+    }
 }
