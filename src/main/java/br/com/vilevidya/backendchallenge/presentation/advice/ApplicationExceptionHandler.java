@@ -1,5 +1,6 @@
 package br.com.vilevidya.backendchallenge.presentation.advice;
 
+import br.com.vilevidya.backendchallenge.infrastructure.gateway.exceptions.InsuranceTypeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,14 @@ public class ApplicationExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
         });
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(InsuranceTypeNotFoundException.class)
+    public Map<String, String> handleBusinessException(InsuranceTypeNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("mensagem_erro", ex.getMessage());
         return errorMap;
     }
 }

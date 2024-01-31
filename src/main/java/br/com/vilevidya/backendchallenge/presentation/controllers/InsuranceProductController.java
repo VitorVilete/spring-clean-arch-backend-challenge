@@ -4,6 +4,7 @@ import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProduct
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
+import br.com.vilevidya.backendchallenge.infrastructure.gateway.exceptions.InsuranceTypeNotFoundException;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
@@ -30,7 +31,7 @@ public class InsuranceProductController {
     }
 
     @PutMapping
-    public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request){
+    public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request) throws InsuranceTypeNotFoundException {
         log.info("method=create, step=starting, request={}", request);
         PutInsuranceProductResponse response = insuranceProductDTOMapper.toResponse(
                 createInsuranceProductUseCase.createInsuranceProduct(
