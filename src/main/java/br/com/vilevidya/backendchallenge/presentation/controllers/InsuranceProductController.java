@@ -8,6 +8,7 @@ import br.com.vilevidya.backendchallenge.infrastructure.gateway.exceptions.Insur
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,11 @@ public class InsuranceProductController {
     }
 
     @PutMapping
+    @Observed(
+            name = "user.name",
+            contextualName = "InsuranceProductController.create",
+            lowCardinalityKeyValues = {"customField", "customValue"}
+    )
     public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request) throws InsuranceTypeNotFoundException {
         log.info("method=create, step=starting, request={}", request);
         PutInsuranceProductResponse response = insuranceProductDTOMapper.toResponse(
