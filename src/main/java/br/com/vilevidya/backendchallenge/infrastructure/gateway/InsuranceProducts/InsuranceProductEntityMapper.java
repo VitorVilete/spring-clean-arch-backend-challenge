@@ -13,10 +13,10 @@ public class InsuranceProductEntityMapper {
     InsuranceProductEntity toEntity(InsuranceProduct insuranceProductDomainObject){
         return new InsuranceProductEntity(
                 new InsuranceProductEntityPK(
-                        insuranceProductDomainObject.getId(),
                         insuranceProductDomainObject.getName(),
                         insuranceProductDomainObject.getInsuranceType().name()
                 ),
+                insuranceProductDomainObject.getId(),
                 BigDecimal.valueOf(insuranceProductDomainObject.getBasePrice()),
                 BigDecimal.valueOf(insuranceProductDomainObject.getTaxedPrice())
         );
@@ -25,7 +25,7 @@ public class InsuranceProductEntityMapper {
         //Cant really get details on taxes here, so we're getting only the category as it is necessary
         return new InsuranceProduct(
                 new InsuranceType(insuranceProductEntity.getInsuranceProductEntityPK().getCategory(), 0,0,0),
-                insuranceProductEntity.getInsuranceProductEntityPK().getId(),
+                insuranceProductEntity.getId(),
                 insuranceProductEntity.getInsuranceProductEntityPK().getName(),
                 insuranceProductEntity.getBasePrice().doubleValue(),
                 insuranceProductEntity.getTaxedPrice().doubleValue()

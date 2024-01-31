@@ -7,22 +7,11 @@ import java.util.UUID;
 
 @Embeddable
 public class InsuranceProductEntityPK implements Serializable {
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     @Column(name = "NAME")
     private String name;
     @Column(name = "CATEGORY")
     private String category;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -40,8 +29,7 @@ public class InsuranceProductEntityPK implements Serializable {
         this.category = category;
     }
 
-    public InsuranceProductEntityPK(UUID id, String name, String category) {
-        this.id = id;
+    public InsuranceProductEntityPK(String name, String category) {
         this.name = name;
         this.category = category;
     }
