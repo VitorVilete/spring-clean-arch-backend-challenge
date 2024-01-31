@@ -7,8 +7,11 @@ import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.Fin
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,33 +30,17 @@ public class InsuranceProductController {
     }
 
     @PutMapping
-    PutInsuranceProductResponse create(@RequestBody PutInsuranceProductRequest request){
+    public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request){
         log.info("method=create, step=starting, request={}", request);
         PutInsuranceProductResponse response = insuranceProductDTOMapper.toResponse(
                 createInsuranceProductUseCase.createInsuranceProduct(
                     insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(
                             request,
-                            findInsuranceTypeByNameUseCase.findInsuranceTypeByName(request.categoria())
+                            findInsuranceTypeByNameUseCase.findInsuranceTypeByName(request.getCategoria())
                     )
         ));
         log.info("method=create, step=finished, response={}", response);
-        return response;
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-//    private double calculateTaxes(InsuranceProduct insuranceProduct){
-//        double result;
-//        if (insuranceProduct.getTaxedPrice() == 0){
-//            double basePrice = insuranceProduct.getBasePrice();
-//            InsuranceType insuranceType = insuranceProduct.getInsuranceType();
-//
-//            result = basePrice +
-//                    (basePrice * insuranceType.iofTaxValue().doubleValue()) +
-//                    (basePrice * insuranceType.pisTaxValue().doubleValue()) +
-//                    (basePrice * insuranceType.cofinsTaxValue().doubleValue());
-//        }else{
-//            result = insuranceProduct.getTaxedPrice();
-//        }
-//        return result;
-//    }
 
 }
