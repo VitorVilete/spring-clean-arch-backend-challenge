@@ -11,8 +11,15 @@
 	<groupId>br.com.vilevidya</groupId>
 	<artifactId>backend-challenge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>backend-challenge</name>
 	<description>Spring Clean Architecture challenge for Itaú Unibanco</description>
+	<modules>
+		<module>backendchallenge-domain</module>
+		<module>backendchallenge-application</module>
+		<module>backendchallenge-infrastructure</module>
+		<module>backendchallenge-presentation</module>
+	</modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
