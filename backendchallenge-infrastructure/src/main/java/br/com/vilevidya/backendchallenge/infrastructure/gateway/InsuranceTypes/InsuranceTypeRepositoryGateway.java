@@ -8,6 +8,8 @@ import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTyp
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
 
     private static final Logger log = LoggerFactory.getLogger(InsuranceTypeRepositoryGateway.class);
@@ -23,9 +25,9 @@ public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
     @Override
     public InsuranceType findInsuranceTypeByName(String insuranceTypeName) throws InsuranceTypeNotFoundException {
         log.info("method=findInsuranceTypeByName, step=starting, name={}", insuranceTypeName);
-        InsuranceTypeLocalEntity foundObject = insuranceTypeLocalRepository.findByName(insuranceTypeName);
-        if(foundObject != null) {
-            InsuranceType result = insuranceProductEntityMapper.toDomainObject(foundObject);
+        Optional<InsuranceTypeLocalEntity> foundObject = insuranceTypeLocalRepository.findByName(insuranceTypeName);
+        if(foundObject.isPresent()) {
+            InsuranceType result = insuranceProductEntityMapper.toDomainObject(foundObject.get());
             log.info("method=findInsuranceTypeByName, step=finished, result={}", result);
             return result;
         }else {

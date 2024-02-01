@@ -32,6 +32,9 @@ public class InsuranceProductEntityPK implements Serializable {
     public static class InsuranceProductEntityPKBuilder{
         private String name;
         private String category;
+
+        public InsuranceProductEntityPKBuilder(){
+        }
         public InsuranceProductEntityPKBuilder(String name, String category){
             this.name = name;
             this.category = category;

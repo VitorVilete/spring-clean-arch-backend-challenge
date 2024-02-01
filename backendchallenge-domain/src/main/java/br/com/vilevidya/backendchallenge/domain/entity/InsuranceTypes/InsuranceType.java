@@ -12,6 +12,9 @@ public record InsuranceType(String name, Number iofTaxValue, Number pisTaxValue,
         private Number pisTaxValue;
 
         private Number cofinsTaxValue;
+        public InsuranceTypeBuilder(){
+        }
+
         public InsuranceTypeBuilder(String name, Number iofTaxValue, Number pisTaxValue, Number cofinsTaxValue){
             this.name = name;
             this.iofTaxValue = iofTaxValue;

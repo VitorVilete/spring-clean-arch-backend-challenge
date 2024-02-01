@@ -48,6 +48,9 @@ public class InsuranceTypeLocalEntity {
         private BigDecimal pisTaxValue;
 
         private BigDecimal cofinsTaxValue;
+        public InsuranceTypeLocalEntityBuilder(){
+
+        }
         public InsuranceTypeLocalEntityBuilder(String name, BigDecimal iofTaxValue, BigDecimal pisTaxValue, BigDecimal cofinsTaxValue){
             this.name = name;
             this.iofTaxValue = iofTaxValue;

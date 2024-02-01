@@ -73,6 +73,9 @@ public class InsuranceProductEntity {
             return this;
         }
 
+        public InsuranceProductEntityBuilder(){
+        }
+
         public InsuranceProductEntityBuilder(UUID id, InsuranceProductEntityPK insuranceProductEntityPK, BigDecimal basePrice, BigDecimal taxedPrice){
             this.id = id;
             this.insuranceProductEntityPK = insuranceProductEntityPK;

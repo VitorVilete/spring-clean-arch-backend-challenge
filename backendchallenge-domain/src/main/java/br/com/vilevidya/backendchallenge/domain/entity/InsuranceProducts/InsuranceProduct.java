@@ -57,6 +57,8 @@ public class InsuranceProduct {
         String name;
         double basePrice;
         double taxedPrice;
+        public InsuranceProductBuilder() {
+        }
         public InsuranceProductBuilder(InsuranceType insuranceType, UUID id, String name, double basePrice, double taxedPrice) {
             this.insuranceType = insuranceType;
             this.id = id;

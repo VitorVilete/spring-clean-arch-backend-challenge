@@ -3,9 +3,10 @@ package br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTy
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class InsuranceTypeLocalRepository {
-    static final ArrayList<InsuranceTypeLocalEntity> insuranceTypeEntities = new ArrayList<>(
+    public static final ArrayList<InsuranceTypeLocalEntity> insuranceTypeEntities = new ArrayList<>(
             Arrays.asList(
                     new InsuranceTypeLocalEntity.InsuranceTypeLocalEntityBuilder("VIDA", BigDecimal.valueOf(0.01), BigDecimal.valueOf(0.022), BigDecimal.valueOf(0)).build(),
                     new InsuranceTypeLocalEntity.InsuranceTypeLocalEntityBuilder("AUTO", BigDecimal.valueOf(0.055), BigDecimal.valueOf(0.04), BigDecimal.valueOf(0.01)).build(),
@@ -14,7 +15,7 @@ public class InsuranceTypeLocalRepository {
                     new InsuranceTypeLocalEntity.InsuranceTypeLocalEntityBuilder("PATRIMONIAL", BigDecimal.valueOf(0.05), BigDecimal.valueOf(0.03), BigDecimal.valueOf(0)).build()
             )
     );
-    public InsuranceTypeLocalEntity findByName(String insuranceTypeName){
-        return insuranceTypeEntities.stream().filter(insuranceType -> insuranceTypeName.equals(insuranceType.getName())).findAny().orElse(null);
+    public Optional<InsuranceTypeLocalEntity> findByName(String insuranceTypeName){
+        return insuranceTypeEntities.stream().filter(insuranceType -> insuranceTypeName.equals(insuranceType.getName())).findAny();
     }
 }
