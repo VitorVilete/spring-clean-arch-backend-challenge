@@ -40,20 +40,4 @@ public class InsuranceProductController {
         return response;
     }
 
-//    private double calculateTaxes(InsuranceProduct insuranceProduct){
-//        double result;
-//        if (insuranceProduct.getTaxedPrice() == 0){
-//            double basePrice = insuranceProduct.getBasePrice();
-//            InsuranceType insuranceType = insuranceProduct.getInsuranceType();
-//
-//            result = basePrice +
-//                    (basePrice * insuranceType.iofTaxValue().doubleValue()) +
-//                    (basePrice * insuranceType.pisTaxValue().doubleValue()) +
-//                    (basePrice * insuranceType.cofinsTaxValue().doubleValue());
-//        }else{
-//            result = insuranceProduct.getTaxedPrice();
-//        }
-//        return result;
-//    }
-
 }

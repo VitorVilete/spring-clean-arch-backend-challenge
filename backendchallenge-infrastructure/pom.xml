@@ -29,10 +29,5 @@
             <artifactId>backendchallenge-application</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>br.com.vilevidya</groupId>
-            <artifactId>backendchallenge-presentation</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>
