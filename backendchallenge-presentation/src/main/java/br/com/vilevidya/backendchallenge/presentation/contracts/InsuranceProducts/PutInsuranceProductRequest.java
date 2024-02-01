@@ -4,9 +4,6 @@ import jakarta.validation.constraints.*;
 
 public class PutInsuranceProductRequest {
 
-    @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            message = "insira um UUID válido")
-    String id;
     @NotBlank
     String nome;
     @NotBlank
@@ -19,14 +16,6 @@ public class PutInsuranceProductRequest {
     @DecimalMin(value="0.01")
     @Digits(integer=11, fraction = 2)
     Number preco_tarifado;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -60,8 +49,7 @@ public class PutInsuranceProductRequest {
         this.preco_tarifado = preco_tarifado;
     }
 
-    public PutInsuranceProductRequest(String id, String nome, String categoria, Number preco_base, Number preco_tarifado) {
-        this.id = id;
+    public PutInsuranceProductRequest(String nome, String categoria, Number preco_base, Number preco_tarifado) {
         this.nome = nome;
         this.categoria = categoria;
         this.preco_base = preco_base;

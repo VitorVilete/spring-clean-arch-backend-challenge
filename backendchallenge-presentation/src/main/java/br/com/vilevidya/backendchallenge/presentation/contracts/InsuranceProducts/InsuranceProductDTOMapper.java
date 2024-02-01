@@ -19,7 +19,7 @@ public class InsuranceProductDTOMapper {
     public InsuranceProduct toInsuranceProduct(PutInsuranceProductRequest request){
         return new InsuranceProduct(
                 new InsuranceType(request.getCategoria(), 0, 0, 0),
-                request.getId() != null ? UUID.fromString(request.getId()) : null,
+             null,
                 request.getNome(),
                 request.getPreco_base().doubleValue(),
                 request.getPreco_tarifado() != null ? request.getPreco_tarifado().doubleValue() : 0
@@ -29,7 +29,7 @@ public class InsuranceProductDTOMapper {
     public InsuranceProduct toInsuranceProductWithInsuranceType(PutInsuranceProductRequest request, InsuranceType insuranceType){
         return new InsuranceProduct(
                 insuranceType,
-                request.getId() != null ? UUID.fromString(request.getId()) : null,
+                null,
                 request.getNome(),
                 request.getPreco_base().doubleValue(),
                 request.getPreco_tarifado() != null ? request.getPreco_tarifado().doubleValue() : 0
