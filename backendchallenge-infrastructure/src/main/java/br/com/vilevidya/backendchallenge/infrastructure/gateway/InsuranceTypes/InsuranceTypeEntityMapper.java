@@ -1,14 +1,14 @@
 package br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceTypes;
 
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
-import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeEntity;
+import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeLocalEntity;
 
 import java.math.BigDecimal;
 
 
 public class InsuranceTypeEntityMapper {
-    public InsuranceTypeEntity toEntity(InsuranceType insuranceProductDomainObject){
-        return new InsuranceTypeEntity(
+    public InsuranceTypeLocalEntity toLocalEntity(InsuranceType insuranceProductDomainObject){
+        return new InsuranceTypeLocalEntity(
                 insuranceProductDomainObject.name(),
                 BigDecimal.valueOf(insuranceProductDomainObject.iofTaxValue().doubleValue()),
                 BigDecimal.valueOf(insuranceProductDomainObject.pisTaxValue().doubleValue()),
@@ -16,12 +16,12 @@ public class InsuranceTypeEntityMapper {
         );
 
     }
-    public InsuranceType toDomainObject(InsuranceTypeEntity insuranceTypeEntity){
+    public InsuranceType toDomainObject(InsuranceTypeLocalEntity insuranceTypeLocalEntity){
         return new InsuranceType(
-                insuranceTypeEntity.getName(),
-                insuranceTypeEntity.getIofTaxValue(),
-                insuranceTypeEntity.getPisTaxValue(),
-                insuranceTypeEntity.getCofinsTaxValue()
+                insuranceTypeLocalEntity.getName(),
+                insuranceTypeLocalEntity.getIofTaxValue(),
+                insuranceTypeLocalEntity.getPisTaxValue(),
+                insuranceTypeLocalEntity.getCofinsTaxValue()
         );
     }
 }

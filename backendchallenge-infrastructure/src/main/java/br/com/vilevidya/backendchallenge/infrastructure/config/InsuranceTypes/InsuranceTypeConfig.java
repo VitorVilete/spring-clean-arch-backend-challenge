@@ -5,7 +5,7 @@ import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.I
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
 import br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceTypes.InsuranceTypeEntityMapper;
 import br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceTypes.InsuranceTypeRepositoryGateway;
-import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeRepository;
+import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeLocalRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,8 +17,13 @@ public class InsuranceTypeConfig {
     }
 
     @Bean
-    IInsuranceTypeGateway insuranceTypeGateway(InsuranceTypeRepository insuranceTypeRepository, InsuranceTypeEntityMapper insuranceTypeEntityMapper){
-        return new InsuranceTypeRepositoryGateway(insuranceTypeRepository, insuranceTypeEntityMapper);
+    InsuranceTypeLocalRepository insuranceTypeLocalRepository(){
+        return new InsuranceTypeLocalRepository();
+    }
+
+    @Bean
+    IInsuranceTypeGateway insuranceTypeGateway(InsuranceTypeLocalRepository insuranceTypeLocalRepository, InsuranceTypeEntityMapper insuranceTypeEntityMapper){
+        return new InsuranceTypeRepositoryGateway(insuranceTypeLocalRepository, insuranceTypeEntityMapper);
     }
 
     @Bean
