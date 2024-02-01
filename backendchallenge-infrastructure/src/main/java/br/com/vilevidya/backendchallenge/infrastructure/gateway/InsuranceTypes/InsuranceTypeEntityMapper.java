@@ -8,20 +8,20 @@ import java.math.BigDecimal;
 
 public class InsuranceTypeEntityMapper {
     public InsuranceTypeLocalEntity toLocalEntity(InsuranceType insuranceProductDomainObject){
-        return new InsuranceTypeLocalEntity(
+        return new InsuranceTypeLocalEntity.InsuranceTypeLocalEntityBuilder(
                 insuranceProductDomainObject.name(),
                 BigDecimal.valueOf(insuranceProductDomainObject.iofTaxValue().doubleValue()),
                 BigDecimal.valueOf(insuranceProductDomainObject.pisTaxValue().doubleValue()),
                 BigDecimal.valueOf(insuranceProductDomainObject.cofinsTaxValue().doubleValue())
-        );
+        ).build();
 
     }
     public InsuranceType toDomainObject(InsuranceTypeLocalEntity insuranceTypeLocalEntity){
-        return new InsuranceType(
+        return new InsuranceType.InsuranceTypeBuilder(
                 insuranceTypeLocalEntity.getName(),
                 insuranceTypeLocalEntity.getIofTaxValue(),
                 insuranceTypeLocalEntity.getPisTaxValue(),
                 insuranceTypeLocalEntity.getCofinsTaxValue()
-        );
+        ).build();
     }
 }
