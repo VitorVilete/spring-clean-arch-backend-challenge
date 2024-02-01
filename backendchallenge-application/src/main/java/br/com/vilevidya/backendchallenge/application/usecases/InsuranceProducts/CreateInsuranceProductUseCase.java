@@ -3,6 +3,7 @@ package br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
+import io.micrometer.observation.annotation.Observed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,11 @@ public class CreateInsuranceProductUseCase {
     public CreateInsuranceProductUseCase(IInsuranceProductGateway IInsuranceProductGateway) {
         this.IInsuranceProductGateway = IInsuranceProductGateway;
     }
-
+    @Observed(
+            name = "user.name",
+            contextualName = "CreateInsuranceProductUseCase.createInsuranceProduct",
+            lowCardinalityKeyValues = {"customField", "customValue"}
+    )
     public InsuranceProduct createInsuranceProduct(InsuranceProduct insuranceProduct) {
         log.info("method=createInsuranceProduct, step=starting, name={}", insuranceProduct);
         insuranceProduct.setTaxedPrice(calculateTaxes(insuranceProduct));

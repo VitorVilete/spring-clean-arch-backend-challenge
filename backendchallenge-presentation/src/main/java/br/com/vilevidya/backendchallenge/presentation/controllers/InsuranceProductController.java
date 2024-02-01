@@ -4,11 +4,16 @@ import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProduct
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
+import br.com.vilevidya.backendchallenge.application.usecases.exceptions.InsuranceTypeNotFoundException;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
+import io.micrometer.observation.annotation.Observed;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,17 +32,23 @@ public class InsuranceProductController {
     }
 
     @PutMapping
-    PutInsuranceProductResponse create(@RequestBody PutInsuranceProductRequest request){
+    @Observed(
+            name = "user.name",
+            contextualName = "InsuranceProductController.create",
+            lowCardinalityKeyValues = {"customField", "customValue"}
+    )
+    public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request) throws Exception {
         log.info("method=create, step=starting, request={}", request);
         PutInsuranceProductResponse response = insuranceProductDTOMapper.toResponse(
                 createInsuranceProductUseCase.createInsuranceProduct(
-                    insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(
-                            request,
-                            findInsuranceTypeByNameUseCase.findInsuranceTypeByName(request.categoria())
-                    )
-        ));
+                        insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(
+                                request,
+                                findInsuranceTypeByNameUseCase.findInsuranceTypeByName(request.getCategoria())
+                        )
+                ));
         log.info("method=create, step=finished, response={}", response);
-        return response;
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
 }
