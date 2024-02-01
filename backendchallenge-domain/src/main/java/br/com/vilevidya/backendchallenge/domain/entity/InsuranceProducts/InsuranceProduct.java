@@ -6,58 +6,86 @@ import java.util.UUID;
 
 
 public class InsuranceProduct {
-    InsuranceType insuranceType;
+    private InsuranceType insuranceType;
+    private UUID id;
+    private String name;
+    private double basePrice;
+    private double taxedPrice;
 
-    UUID id;
-    String name;
-    double basePrice;
-    double taxedPrice;
-
-    public InsuranceType getInsuranceType() {
-        return insuranceType;
-    }
-
-    public void setInsuranceType(InsuranceType insuranceType) {
-        this.insuranceType = insuranceType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public double getTaxedPrice() {
-        return taxedPrice;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public void setTaxedPrice(double taxedPrice) {
         this.taxedPrice = taxedPrice;
     }
 
+    public InsuranceType getInsuranceType() {
+        return insuranceType;
+    }
+
     public UUID getId() {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public InsuranceProduct(InsuranceType insuranceType, UUID id, String name, double basePrice, double taxedPrice) {
-        this.insuranceType = insuranceType;
-        this.id = id;
-        this.name = name;
-        this.basePrice = basePrice;
-        this.taxedPrice = taxedPrice;
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public double getTaxedPrice() {
+        return taxedPrice;
+    }
+
+    public InsuranceProduct() {
+    }
+    public InsuranceProduct(InsuranceProductBuilder insuranceProductBuilder) {
+        this.insuranceType = insuranceProductBuilder.insuranceType;
+        this.id = insuranceProductBuilder.id;
+        this.name = insuranceProductBuilder.name;
+        this.basePrice = insuranceProductBuilder.basePrice;
+        this.taxedPrice = insuranceProductBuilder.taxedPrice;
+    }
+
+    //Builder
+    public static class InsuranceProductBuilder{
+        private InsuranceType insuranceType;
+        UUID id;
+        String name;
+        double basePrice;
+        double taxedPrice;
+        public InsuranceProductBuilder(InsuranceType insuranceType, UUID id, String name, double basePrice, double taxedPrice) {
+            this.insuranceType = insuranceType;
+            this.id = id;
+            this.name = name;
+            this.basePrice = basePrice;
+            this.taxedPrice = taxedPrice;
+        }
+        public InsuranceProductBuilder setInsuranceType(InsuranceType insuranceType){
+            this.insuranceType = insuranceType;
+            return this;
+        }
+        public InsuranceProductBuilder setId(UUID id){
+            this.id = id;
+            return this;
+        }
+        public InsuranceProductBuilder setName(String name){
+            this.name = name;
+            return this;
+        }
+        public InsuranceProductBuilder setBasePrice(double basePrice){
+            this.basePrice = basePrice;
+            return this;
+        }
+        public InsuranceProductBuilder setTaxedPrice(double taxedPrice){
+            this.taxedPrice = taxedPrice;
+            return this;
+        }
+        public InsuranceProduct build(){
+            return new InsuranceProduct(this);
+        }
     }
 }
