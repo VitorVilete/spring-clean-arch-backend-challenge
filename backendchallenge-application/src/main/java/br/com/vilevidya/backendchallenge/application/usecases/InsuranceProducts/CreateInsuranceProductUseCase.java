@@ -7,8 +7,6 @@ import io.micrometer.observation.annotation.Observed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
-
 public class CreateInsuranceProductUseCase {
     private static final Logger log = LoggerFactory.getLogger(CreateInsuranceProductUseCase.class);
     // Dependency injection

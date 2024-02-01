@@ -3,7 +3,6 @@ package br.com.vilevidya.backendchallenge.infrastructure.persistence.InsurancePr
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Embeddable
 public class InsuranceProductEntityPK implements Serializable {

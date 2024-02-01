@@ -13,10 +13,10 @@ public class PutInsuranceProductRequest {
     String categoria;
 
     @NotNull
-    @DecimalMin(value="0.01", inclusive = true)
+    @DecimalMin(value="0.01")
     @Digits(integer=11, fraction = 2)
     Number preco_base;
-    @DecimalMin(value="0.01", inclusive = true)
+    @DecimalMin(value="0.01")
     @Digits(integer=11, fraction = 2)
     Number preco_tarifado;
 
