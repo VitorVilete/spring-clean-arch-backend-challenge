@@ -10,15 +10,13 @@ import java.math.BigDecimal;
 public class InsuranceProductEntityMapper {
 
     InsuranceProductEntity toEntity(InsuranceProduct insuranceProductDomainObject){
-        return new InsuranceProductEntity(
-                new InsuranceProductEntityPK(
-                        insuranceProductDomainObject.getName(),
-                        insuranceProductDomainObject.getInsuranceType().name()
-                ),
+        return new InsuranceProductEntity.InsuranceProductEntityBuilder(
                 insuranceProductDomainObject.getId(),
+                new InsuranceProductEntityPK.InsuranceProductEntityPKBuilder(insuranceProductDomainObject.getName(),
+                        insuranceProductDomainObject.getInsuranceType().name()).build(),
                 BigDecimal.valueOf(insuranceProductDomainObject.getBasePrice()),
                 BigDecimal.valueOf(insuranceProductDomainObject.getTaxedPrice())
-        );
+        ).build();
     }
     InsuranceProduct toDomainObject(InsuranceProductEntity insuranceProductEntity){
         //Cant really get details on taxes here, so we're getting only the category as it is necessary

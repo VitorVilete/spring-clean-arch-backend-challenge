@@ -18,23 +18,6 @@ public class InsuranceProductEntity {
     @Column(name = "TAXED_PRICE", precision = 11, scale = 2)
     private BigDecimal taxedPrice;
 
-
-    public BigDecimal getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public BigDecimal getTaxedPrice() {
-        return taxedPrice;
-    }
-
-    public void setTaxedPrice(BigDecimal taxedPrice) {
-        this.taxedPrice = taxedPrice;
-    }
-
     public InsuranceProductEntityPK getInsuranceProductEntityPK() {
         return insuranceProductEntityPK;
     }
@@ -43,22 +26,61 @@ public class InsuranceProductEntity {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public BigDecimal getBasePrice() {
+        return basePrice;
     }
 
-    public void setInsuranceProductEntityPK(InsuranceProductEntityPK insuranceProductEntityPK) {
-        this.insuranceProductEntityPK = insuranceProductEntityPK;
-    }
-
-    public InsuranceProductEntity(InsuranceProductEntityPK insuranceProductEntityPK, UUID id, BigDecimal basePrice, BigDecimal taxedPrice) {
-        this.id = id;
-        this.insuranceProductEntityPK = insuranceProductEntityPK;
-        this.basePrice = basePrice;
-        this.taxedPrice = taxedPrice;
+    public BigDecimal getTaxedPrice() {
+        return taxedPrice;
     }
 
     public InsuranceProductEntity(){
 
+    }
+    public InsuranceProductEntity(InsuranceProductEntityBuilder insuranceProductEntityBuilder) {
+        this.id = insuranceProductEntityBuilder.id;
+        this.insuranceProductEntityPK = insuranceProductEntityBuilder.insuranceProductEntityPK;
+        this.basePrice = insuranceProductEntityBuilder.basePrice;
+        this.taxedPrice = insuranceProductEntityBuilder.taxedPrice;
+    }
+
+
+    // Builder
+    public static class InsuranceProductEntityBuilder{
+        //Required
+        private UUID id;
+        private InsuranceProductEntityPK insuranceProductEntityPK;
+        private BigDecimal basePrice;
+        private BigDecimal taxedPrice;
+
+        public InsuranceProductEntityBuilder setId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public InsuranceProductEntityBuilder setInsuranceProductEntityPK(InsuranceProductEntityPK insuranceProductEntityPK) {
+            this.insuranceProductEntityPK = insuranceProductEntityPK;
+            return this;
+        }
+
+        public InsuranceProductEntityBuilder setBasePrice(BigDecimal basePrice) {
+            this.basePrice = basePrice;
+            return this;
+        }
+
+        public InsuranceProductEntityBuilder setTaxedPrice(BigDecimal taxedPrice) {
+            this.taxedPrice = taxedPrice;
+            return this;
+        }
+
+        public InsuranceProductEntityBuilder(UUID id, InsuranceProductEntityPK insuranceProductEntityPK, BigDecimal basePrice, BigDecimal taxedPrice){
+            this.id = id;
+            this.insuranceProductEntityPK = insuranceProductEntityPK;
+            this.basePrice = basePrice;
+            this.taxedPrice = taxedPrice;
+        }
+        public InsuranceProductEntity build(){
+            return new InsuranceProductEntity(this);
+        }
     }
 }
