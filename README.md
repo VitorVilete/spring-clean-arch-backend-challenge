@@ -25,7 +25,7 @@ Abaixo uma imagem comparando a proposta de Robert versus a minha proposta de arq
 ![Screenshot of the base diagrams used for this project](./assets/images/clean_arch_base.png)
 
 ### Clean Architecture Detalhe
-Abaixo está um diagrama com uma estimativa do detalhe de como cada layer da arquitetura ficará ao final do projeto.
+Abaixo está um diagrama com uma estimativa do detalhe de como cada layer da arquitetura ficará ao final do projeto. Recomendo comparar o diagrama com a estrutura final do projeto.
 
 Obs.: eu esbocei esse diagrama nas primeiras horas que eu recebi o teste e eu vou manter neste estado inicial pra ilustrar o entendimento inicial e a evolução do projeto durante a execução.
 
@@ -63,13 +63,14 @@ PUT /produtos é o endpoint exposto para inserção e atualização de um Produt
 O endpoint também retorna um UUID no campo "id", que também é salvo no banco de dados.
 
 Não entendi muito bem o sentido do UUID, uma vez que ele é um parâmetro opcional na API.
-Como ele não é obrigatório, fiz uma chave composta por "nome" e "categoria" para evitar duplicidade com o .
+Como ele não é obrigatório na chamada, fiz uma chave composta por "nome" e "categoria" para evitar duplicidade de Produtos de Seguros.
 
-Se você tentar salvar um Produto com "nome" e "categoria" igual a um que já existe, a API vai atualizar o registro já existente e vai devolver o UUID que foi salvo na primeira inserção.
+Se você tentar salvar um Produto de Seguro com "nome" e "categoria" igual a um que já existe, a API vai atualizar o registro já existente e vai devolver o UUID que foi salvo na primeira inserção.
 
 #### Busca Categoria de Produto
 Este caso de uso não tem um endpoint exposto e serve para realizar uma busca no "catálogo" de categorias de produto e retornar os impostos relacionados à categoria.
 Inicialmente eu tinha criado uma entity pra guardar isso no banco de dados mas ficou desnecessário.
+Não criei uma Controller para isso porque o desafio não solicita este endpoint mas pode ser facilmente implementado, uma vez que já existe um UseCase com este fluxo.
 Por fim, substituí o Repository original que consultava o BD por um Repository local que guarda uma lista estática das categorias e busca a categoria desejada dentro da lista.
 
 #### Observabilidade (métricas, traces e logs)
@@ -83,5 +84,23 @@ Os logs estão formatados e estão sendo logados no console da aplicação e em 
 
 É possível realizar o tracing das chamadas da aplicação uma vez que os logs possuem um spanID e parentID.
 
+## Pontos de Melhoria
+### Uso de Generics para implementação de comportamento comum
+É possível refatorar algumas classes como classes de Response ou Exception para que elas herdem de alguma classe comportamentos comuns.
+Existe [este exemplo](https://medium.com/@aedemirsen/generic-api-response-with-spring-boot-175434952086) ilustrando a implementação de Generics para implementar uma "Response" genérica e que pode ser utilizada em conjunto com o ResponseEntity, habilitando também o uso do ExceptionHandler em cima de tudo isso.
 
+### Qualidade dos Testes Unitários
+Enxergo que é possível uma melhoria nos testes unitários. Deve haver uma forma mais limpa de escrever os testes aproveitando melhor as bibliotecas de teste.
 
+O código está coeso e seguindo a estrutura Arrange -> Act -> Assert.
+
+Por fim, o coverage está alto e os cenários estão cobertos.
+
+## Considerações Finais
+Estou satisfeito com o resultado do projeto.
+
+A arquitetura está bem definida e o código segue os princípios de SOLID.
+
+Está em um estado de "entregue", funcionando e com melhorias mapeadas.
+
+É um bom ponto de partida para uma aplicação e um desenvolvedor com conhecimentos de Clean Architecture consegue identificar a estrutura do projeto com facilidade.
