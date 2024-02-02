@@ -40,8 +40,6 @@ public class InsuranceProduct {
         return taxedPrice;
     }
 
-    public InsuranceProduct() {
-    }
     public InsuranceProduct(InsuranceProductBuilder insuranceProductBuilder) {
         this.insuranceType = insuranceProductBuilder.insuranceType;
         this.id = insuranceProductBuilder.id;

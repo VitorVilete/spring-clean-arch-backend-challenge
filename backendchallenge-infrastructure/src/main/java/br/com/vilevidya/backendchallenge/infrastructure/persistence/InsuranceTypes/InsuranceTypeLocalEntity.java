@@ -37,9 +37,6 @@ public class InsuranceTypeLocalEntity {
         this.cofinsTaxValue = insuranceTypeLocalEntityBuilder.cofinsTaxValue;
     }
 
-    public InsuranceTypeLocalEntity() {
-    }
-
     public static class InsuranceTypeLocalEntityBuilder{
         private String name;
 
