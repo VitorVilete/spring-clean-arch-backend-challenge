@@ -28,7 +28,7 @@ public class CreateInsuranceProductUseCase {
         return result;
     }
 
-    private double calculateTaxes(InsuranceProduct insuranceProduct){
+    public double calculateTaxes(InsuranceProduct insuranceProduct){
         double result;
         if (insuranceProduct.getTaxedPrice() == 0){
             double basePrice = insuranceProduct.getBasePrice();
@@ -42,11 +42,5 @@ public class CreateInsuranceProductUseCase {
             result = insuranceProduct.getTaxedPrice();
         }
         return result;
-    }
-
-    public class InvalidInsuranceProductException extends Exception {
-        public  InvalidInsuranceProductException(String errorMesage){
-            super(errorMesage);
-        }
     }
 }
