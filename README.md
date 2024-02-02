@@ -14,9 +14,17 @@ Uma vez que a aplicação estiver online, você pode ouví-la na porta 8080. O e
 
 Há uma collection do Insomnia do caminho assets/collection_insomnia.json
 
-O Zipkin pode ser acessado em http://localhost:9411/zipkin/
+### Consultando Observability
 
-O H2 console pode ser acessado em http://localhost:8080/h2-console/
+Os logs estão sendo escritos no console da aplicação e em um arquivo de log localizado em /logs.
+
+O Zipkin está sendo utilizado como dashboard para o nosso observability pode ser acessado em http://localhost:9411/zipkin/
+
+### Consultando Database
+
+Esta aplicação utiliza o H2 Database para salvar os Produtos de Seguros.
+
+O H2 Console pode ser acessado em http://localhost:8080/h2-console/. Está utilizando o usuário padrão(user "sa" sem senha), só selecionar "Connect"
 
 ## Sobre a estrutura deste projeto ⚙
 ### Clean Architecture Base
