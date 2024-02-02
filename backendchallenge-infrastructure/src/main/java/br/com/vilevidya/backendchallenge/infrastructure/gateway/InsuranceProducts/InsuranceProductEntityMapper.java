@@ -21,7 +21,8 @@ public class InsuranceProductEntityMapper {
     InsuranceProduct toDomainObject(InsuranceProductEntity insuranceProductEntity){
         //Cant really get details on taxes here, so we're getting only the category as it is necessary
         return new InsuranceProduct.InsuranceProductBuilder(
-                new InsuranceType.InsuranceTypeBuilder(insuranceProductEntity.getInsuranceProductEntityPK().getCategory(), 0,0,0).build(),
+                new InsuranceType.InsuranceTypeBuilder()
+                        .setName(insuranceProductEntity.getInsuranceProductEntityPK().getCategory()).build(),
                 insuranceProductEntity.getId(),
                 insuranceProductEntity.getInsuranceProductEntityPK().getName(),
                 insuranceProductEntity.getBasePrice().doubleValue(),

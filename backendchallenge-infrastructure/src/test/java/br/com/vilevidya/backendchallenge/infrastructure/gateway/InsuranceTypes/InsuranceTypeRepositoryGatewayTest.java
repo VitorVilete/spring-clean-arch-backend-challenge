@@ -5,6 +5,7 @@ import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceT
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeLocalEntity;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceTypes.InsuranceTypeLocalRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,19 +15,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class InsuranceTypeRepositoryGatewayTest {
 
-    public static final String VIDA = "VIDA";
-    public static final BigDecimal IOF_TAX_VALUE = BigDecimal.valueOf(0.01);
-    public static final BigDecimal PIS_TAX_VALUE = BigDecimal.valueOf(0.022);
-    public static final BigDecimal COFINS_TAX_VALUE = BigDecimal.valueOf(0);
-    public static final String CATEGORIA_NAO_ENCONTRADA_COM_O_NOME_VIDA = "Categoria não encontrada com o nome: VIDA";
+    String insuranceTypeLocalEntityName;
+    BigDecimal insuranceTypeLocalEntityIofTaxValue;
+    BigDecimal insuranceTypeLocalEntityPisTaxValue;
+    BigDecimal insuranceTypeLocalEntityCofinsTaxValue;
     @Mock
     InsuranceTypeLocalRepository insuranceTypeLocalRepository;
 
@@ -36,19 +34,28 @@ class InsuranceTypeRepositoryGatewayTest {
     @Autowired
     InsuranceTypeRepositoryGateway insuranceTypeRepositoryGateway;
 
-    private InsuranceTypeLocalEntity createInsuranceTypeLocalEntity(){
-        return new InsuranceTypeLocalEntity.InsuranceTypeLocalEntityBuilder(VIDA, IOF_TAX_VALUE, PIS_TAX_VALUE, COFINS_TAX_VALUE).build();
+    InsuranceTypeLocalEntity insuranceTypeLocalEntity;
+
+    @BeforeEach
+    public void init(){
+        insuranceTypeLocalEntityName = "VIDA";
+        insuranceTypeLocalEntityIofTaxValue = BigDecimal.valueOf(0.01);
+        insuranceTypeLocalEntityPisTaxValue = BigDecimal.valueOf(0.022);
+        insuranceTypeLocalEntityCofinsTaxValue = BigDecimal.valueOf(0);
+        insuranceTypeLocalEntity = new InsuranceTypeLocalEntity
+                .InsuranceTypeLocalEntityBuilder(insuranceTypeLocalEntityName, insuranceTypeLocalEntityIofTaxValue, insuranceTypeLocalEntityPisTaxValue, insuranceTypeLocalEntityCofinsTaxValue).build();
     }
+
     @Test
     public void InsuranceTypeRepositoryGateway_findInsuranceTypeByName_ReturnInsuranceTypeLocalEntity() throws InsuranceTypeNotFoundException {
         //Arrange
         when(insuranceTypeLocalRepository.findByName(Mockito.any(String.class)))
-                .thenReturn(createInsuranceTypeLocalEntity());
+                .thenReturn(insuranceTypeLocalEntity);
         when(insuranceTypeEntityMapper.toDomainObject(Mockito.any(InsuranceTypeLocalEntity.class)))
                 .thenReturn(new InsuranceType.InsuranceTypeBuilder().build());
 
         //Act
-        InsuranceType resultInsuranceType = insuranceTypeRepositoryGateway.findInsuranceTypeByName(VIDA);
+        InsuranceType resultInsuranceType = insuranceTypeRepositoryGateway.findInsuranceTypeByName(insuranceTypeLocalEntityName);
 
         //Assert
         Assertions.assertThat(resultInsuranceType).isNotNull();

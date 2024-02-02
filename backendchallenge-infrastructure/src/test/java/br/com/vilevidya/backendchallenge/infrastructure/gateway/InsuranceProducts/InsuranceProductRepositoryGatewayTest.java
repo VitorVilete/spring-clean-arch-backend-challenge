@@ -6,6 +6,7 @@ import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsurancePro
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntityPK;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,16 +23,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class InsuranceProductRepositoryGatewayTest {
-
-    public static final String NAME = "Seguro Auto Individual";
-    public static final String CATEGORY = "VIDA";
-    public static final BigDecimal BASE_PRICE = BigDecimal.valueOf(1.0);
-    public static final BigDecimal TAXED_PRICE = BigDecimal.valueOf(1.0);
-    public static final UUID ID = UUID.randomUUID();
-    public static final String VIDA = "VIDA";
-    public static final BigDecimal IOF_TAX_VALUE = BigDecimal.valueOf(0.01);
-    public static final BigDecimal PIS_TAX_VALUE = BigDecimal.valueOf(0.022);
-    public static final BigDecimal COFINS_TAX_VALUE = BigDecimal.valueOf(0);
     @Mock
     InsuranceProductRepository insuranceProductRepository;
 
@@ -41,48 +32,60 @@ class InsuranceProductRepositoryGatewayTest {
     @Autowired
     InsuranceProductRepositoryGateway insuranceProductRepositoryGateway;
 
-    private InsuranceProductEntity createInsuranceProductEntity(){
-        return new InsuranceProductEntity.InsuranceProductEntityBuilder()
-                .setInsuranceProductEntityPK(createInsuranceProductEntityPK())
-                .setBasePrice(BASE_PRICE)
-                .setTaxedPrice(TAXED_PRICE)
-                .setId(ID)
-                .build();
-    }
+    String insuranceProductName;
+    String insuranceProductCategory;
+    BigDecimal insuranceProductBasePrice;
+    BigDecimal insuranceProductTaxedPrice;
+    UUID insuranceProductId;
+    String insuranceTypeName;
+    BigDecimal insuranceTypeIofTaxValue;
+    BigDecimal insuranceTypePisTaxValue;
+    BigDecimal insuranceTypeCofinsTaxValue;
+    InsuranceProductEntity insuranceProductEntity;
+    InsuranceProductEntityPK insuranceProductEntityPK;
+    InsuranceProduct insuranceProduct;
+    InsuranceType insuranceType;
 
-    private InsuranceProductEntityPK createInsuranceProductEntityPK(){
-        return new InsuranceProductEntityPK.InsuranceProductEntityPKBuilder()
-                .setName(NAME)
-                .setCategory(CATEGORY)
+    @BeforeEach
+    public void init(){
+        insuranceProductBasePrice = BigDecimal.valueOf(1.0);
+        insuranceProductTaxedPrice = BigDecimal.valueOf(1.0);
+        insuranceProductId = UUID.randomUUID();
+        insuranceTypeName = "VIDA";
+        insuranceTypeIofTaxValue = BigDecimal.valueOf(0.01);
+        insuranceTypePisTaxValue = BigDecimal.valueOf(0.022);
+        insuranceTypeCofinsTaxValue = BigDecimal.valueOf(0);
+        insuranceProductEntityPK = new InsuranceProductEntityPK.InsuranceProductEntityPKBuilder()
+                .setName(insuranceProductName)
+                .setCategory(insuranceProductCategory)
                 .build();
-    }
-
-    private InsuranceProduct buildInsuranceProduct(){
-        return new InsuranceProduct.InsuranceProductBuilder()
-                .setInsuranceType(createInsuranceType())
-                .setId(ID)
-                .setName(NAME)
+        insuranceProductEntity = new InsuranceProductEntity.InsuranceProductEntityBuilder()
+                .setInsuranceProductEntityPK(insuranceProductEntityPK)
+                .setBasePrice(insuranceProductBasePrice)
+                .setTaxedPrice(insuranceProductTaxedPrice)
+                .setId(insuranceProductId)
                 .build();
-    }
-    private InsuranceType createInsuranceType(){
-        return new InsuranceType.InsuranceTypeBuilder(VIDA, IOF_TAX_VALUE, PIS_TAX_VALUE, COFINS_TAX_VALUE).build();
+        insuranceType = new InsuranceType
+                .InsuranceTypeBuilder(insuranceTypeName, insuranceTypeIofTaxValue, insuranceTypePisTaxValue, insuranceTypeCofinsTaxValue).build();
+        insuranceProduct = new InsuranceProduct.InsuranceProductBuilder()
+                .setInsuranceType(insuranceType)
+                .setId(insuranceProductId)
+                .setName(insuranceProductName)
+                .build();
     }
 
     @Test
     public void InsuranceProductRepositoryGateway_createInsuranceProduct_ReturnInsuranceProduct() {
         //Arrange
         when(insuranceProductRepository.findByInsuranceProductEntityPK(Mockito.any(InsuranceProductEntityPK.class)))
-                .thenReturn(Optional.of(
-                        createInsuranceProductEntity()
-                        )
+                .thenReturn(Optional.of(insuranceProductEntity)
                 );
         when(insuranceProductRepository.save(Mockito.any(InsuranceProductEntity.class)))
-                .thenReturn(createInsuranceProductEntity());
+                .thenReturn(insuranceProductEntity);
         when(insuranceProductEntityMapper.toDomainObject(Mockito.any(InsuranceProductEntity.class)))
-                .thenReturn(buildInsuranceProduct());
+                .thenReturn(insuranceProduct);
         when(insuranceProductEntityMapper.toEntity(Mockito.any(InsuranceProduct.class)))
-                .thenReturn(createInsuranceProductEntity());
-        InsuranceProduct insuranceProduct = buildInsuranceProduct();
+                .thenReturn(insuranceProductEntity);
         //Act
         InsuranceProduct resultInsuranceProduct = insuranceProductRepositoryGateway.createInsuranceProduct(insuranceProduct);
 

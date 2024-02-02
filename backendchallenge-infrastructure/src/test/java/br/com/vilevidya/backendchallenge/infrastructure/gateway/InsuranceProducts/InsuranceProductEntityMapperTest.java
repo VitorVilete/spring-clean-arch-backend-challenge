@@ -5,6 +5,7 @@ import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceT
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntity;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductEntityPK;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,45 +16,56 @@ import java.util.UUID;
 @SpringBootTest
 class InsuranceProductEntityMapperTest {
 
-    public static final String NAME = "test";
-    public static final UUID ID = UUID.randomUUID();
-    public static final double BASE_PRICE_DOUBLE = BigDecimal.valueOf(100.00).doubleValue();
-    public static final BigDecimal BASE_PRICE = BigDecimal.valueOf(100.00);
-    public static final double TAXED_PRICE_DOUBLE = BigDecimal.valueOf(101.00).doubleValue();
-    public static final BigDecimal TAXED_PRICE = BigDecimal.valueOf(101.00);
     @Autowired
     private InsuranceProductEntityMapper insuranceProductEntityMapper;
+    String insuranceProductName;
+    String insuranceProductCategory;
+    BigDecimal insuranceProductBasePrice;
+    BigDecimal insuranceProductTaxedPrice;
+    UUID insuranceProductId;
+    String insuranceTypeName;
+    BigDecimal insuranceTypeIofTaxValue;
+    BigDecimal insuranceTypePisTaxValue;
+    BigDecimal insuranceTypeCofinsTaxValue;
+    InsuranceProductEntity insuranceProductEntity;
+    InsuranceProductEntityPK insuranceProductEntityPK;
+    InsuranceProduct insuranceProductDomainObject;
+    InsuranceType insuranceType;
 
-    private InsuranceProduct buildInsuranceProduct(){
-        return new InsuranceProduct.InsuranceProductBuilder()
-                .setInsuranceType(new InsuranceType.InsuranceTypeBuilder()
-                        .setCofinsTaxValue(0)
-                        .setIofTaxValue(0)
-                        .setPisTaxValue(0)
-                        .build())
-                .setId(ID)
-                .setName(NAME)
-                .setBasePrice(BASE_PRICE_DOUBLE)
-                .setTaxedPrice(TAXED_PRICE_DOUBLE)
+    @BeforeEach
+    public void init(){
+        insuranceProductBasePrice = BigDecimal.valueOf(1.0);
+        insuranceProductTaxedPrice = BigDecimal.valueOf(1.0);
+        insuranceProductId = UUID.randomUUID();
+        insuranceTypeName = "VIDA";
+        insuranceProductCategory = insuranceTypeName;
+        insuranceTypeIofTaxValue = BigDecimal.valueOf(0.01);
+        insuranceTypePisTaxValue = BigDecimal.valueOf(0.022);
+        insuranceTypeCofinsTaxValue = BigDecimal.valueOf(0);
+        insuranceProductEntityPK = new InsuranceProductEntityPK.InsuranceProductEntityPKBuilder()
+                .setName(insuranceProductName)
+                .setCategory(insuranceProductCategory)
                 .build();
-    }
-
-    private InsuranceProductEntity buildInsuranceProductEntity(){
-        return new InsuranceProductEntity.InsuranceProductEntityBuilder()
-                .setId(ID)
-                .setInsuranceProductEntityPK(new InsuranceProductEntityPK.InsuranceProductEntityPKBuilder()
-                        .setName(NAME)
-                        .build())
-                .setBasePrice(BASE_PRICE)
-                .setTaxedPrice(TAXED_PRICE)
+        insuranceProductEntity = new InsuranceProductEntity.InsuranceProductEntityBuilder()
+                .setInsuranceProductEntityPK(insuranceProductEntityPK)
+                .setBasePrice(insuranceProductBasePrice)
+                .setTaxedPrice(insuranceProductTaxedPrice)
+                .setId(insuranceProductId)
+                .build();
+        insuranceType = new InsuranceType
+                .InsuranceTypeBuilder().setName(insuranceTypeName).build();
+        insuranceProductDomainObject = new InsuranceProduct.InsuranceProductBuilder()
+                .setInsuranceType(insuranceType)
+                .setId(insuranceProductId)
+                .setName(insuranceProductName)
+                .setBasePrice(insuranceProductBasePrice.doubleValue())
+                .setTaxedPrice(insuranceProductTaxedPrice.doubleValue())
                 .build();
     }
 
     @Test
     public void InsuranceProductEntityMapper_toEntity_ReturnInsuranceProductEntity(){
         //Arrange
-        InsuranceProduct insuranceProductDomainObject = buildInsuranceProduct();
-        InsuranceProductEntity insuranceProductEntity = buildInsuranceProductEntity();
 
         //Act
         InsuranceProductEntity mappedInsuranceProductEntity = insuranceProductEntityMapper.toEntity(insuranceProductDomainObject);
@@ -65,8 +77,6 @@ class InsuranceProductEntityMapperTest {
     @Test
     public void InsuranceProductEntityMapper_toDomainObject_ReturnInsuranceProduct(){
         //Arrange
-        InsuranceProduct insuranceProductDomainObject = buildInsuranceProduct();
-        InsuranceProductEntity insuranceProductEntity = buildInsuranceProductEntity();
 
         //Act
         InsuranceProduct mappedInsuranceProductDomainObject = insuranceProductEntityMapper.toDomainObject(insuranceProductEntity);
