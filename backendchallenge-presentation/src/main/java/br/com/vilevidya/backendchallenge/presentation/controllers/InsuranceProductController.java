@@ -1,7 +1,5 @@
 package br.com.vilevidya.backendchallenge.presentation.controllers;
 
-import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
-import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceTypes.IInsuranceTypeGateway;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
 import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
@@ -27,7 +25,7 @@ public class InsuranceProductController {
     private final FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase;
     private final InsuranceProductDTOMapper insuranceProductDTOMapper;
 
-    public InsuranceProductController(IInsuranceProductGateway insuranceProductGateway, IInsuranceTypeGateway insuranceTypeGateway, CreateInsuranceProductUseCase createInsuranceProductUseCase, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase, br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper insuranceProductDTOMapper) {
+    public InsuranceProductController(CreateInsuranceProductUseCase createInsuranceProductUseCase, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase, br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper insuranceProductDTOMapper) {
         this.createInsuranceProductUseCase = createInsuranceProductUseCase;
         this.findInsuranceTypeByNameUseCase = findInsuranceTypeByNameUseCase;
         this.insuranceProductDTOMapper = insuranceProductDTOMapper;
