@@ -44,8 +44,18 @@ Esta camada manterá os "Use Cases" separados da camada de Domain. Um Use Case �
 Por último, esta camada irá conter as definições de negócio.
 
 ### Clean Architecture No Projeto
+#### Multi-module
 Este projeto está estruturado em um esquema maven multi-module, que consiste na existência de um pom.xml parent e um pom.xml para cada module(child).
-O intuito é fazer com que as camadas tenham apenas o acoplamento necessário para funcionar da forma mais independente possível.
+O intuito é fazer, de forma estrutural, com que as camadas tenham apenas o acoplamento correto, reforçando a "The Dependency Rule" do conceito da Clean Architecture, onde dependências de código fonte só podem apontar "pra dentro"(vide as setas na imagem da proposta original do Clean Architecture). Ao revisar o código deste repositório, você pode perceber a regra é reforçada em cada módulo por meio da tag <dependency> em seus pom.xml.
+
+Para que isso seja possível, o pom.xml parent precisa carregar todos os módulos na tag <modules> em seu pom.xml
+
+#### Separação de responsabilidade
+O ciclo de vida de uma chamada à esta aplicação respeita a ordem do Clean Architecture, fazendo o seguinte caminho.
+
+Presentation ->(-> Infrastructure injetando as implementações dos "Gateways" da Application, servindo como Interface Adapters ->)Application -> Domain
+
+Presentation <- Application (<- Infrastructure retornando o resultado do comportamento implementado <-)<- Domain
 
 ### Funcionalidades
 #### Salva & Atualiza Produtos de Seguros
@@ -66,7 +76,8 @@ Por fim, substituí o Repository original que consultava o BD por um Repository 
 Este projeto utiliza o Observation API do pacote spring-boot-starter-aop para observar alguns pontos interessantes do projeto e traçar métricas.
 
 Neste projeto, eu estou usando o Zipkin para colher os dados desses métodos. 
-Estou colhendo os dados de execução da Controller e todos os Use Cases que estão sendo chamados.
+
+O projeto está colhendo os dados de execução da Controller e todos os Use Cases que estão sendo chamados.
 
 Os logs estão formatados e estão sendo logados no console da aplicação e em um arquivo de texto.
 
