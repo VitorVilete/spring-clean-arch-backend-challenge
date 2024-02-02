@@ -4,18 +4,21 @@
 ### Executando este projeto
 IMPORTANTE: Para execução desse projeto, é necessário ter o Docker instalado! Este projeto sobe uma instância um container com Zipkin via Docker Compose.
 
-O arquivo "main" dessa aplicação pode ser encontrado em "backendchallenge-presentation/src/main/java/br/com/vilevidya/BackendChallengeApplication.java".
+A classe com o método "main" dessa aplicação pode ser encontrada em "backendchallenge-presentation/src/main/java/br/com/vilevidya/BackendChallengeApplication.java".
 
 Suba a aplicação BackendChallengeApplication na sua IDE de preferência ou pelo "mvn spring-boot:run"
 
 Uma vez que a aplicação estiver online, você pode ouví-la na porta 8080. O endpoint separado para o teste é o caminho PUT /produtos.
 
+Há uma collection do Insomnia do caminho assets/collection_insomnia.json
+
 O Zipkin pode ser acessado em http://localhost:9411/zipkin/
+
 O H2 console pode ser acessado em http://localhost:8080/h2-console/
 
 ## Sobre a solução
 ### Clean Architecture Base
-Este projeto foi desenvolvido usando "The Clean Architecture", originalmente escrita por Robert C. Martin (Uncle Bob).
+Este projeto foi desenvolvido usando "The Clean Architecture", originalmente escrita por Robert C. Martin (Uncle Bob) e você pode conferir o texto na íntegra [em seu blog](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
 Abaixo uma imagem comparando a proposta de Robert versus a minha proposta de arquitetura deste projeto.
 
