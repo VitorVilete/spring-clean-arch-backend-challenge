@@ -43,10 +43,7 @@ class InsuranceTypeRepositoryGatewayTest {
     public void InsuranceTypeRepositoryGateway_findInsuranceTypeByName_ReturnInsuranceTypeLocalEntity() throws InsuranceTypeNotFoundException {
         //Arrange
         when(insuranceTypeLocalRepository.findByName(Mockito.any(String.class)))
-                .thenReturn(Optional.of(
-                    createInsuranceTypeLocalEntity()
-                )
-        );
+                .thenReturn(createInsuranceTypeLocalEntity());
         when(insuranceTypeEntityMapper.toDomainObject(Mockito.any(InsuranceTypeLocalEntity.class)))
                 .thenReturn(new InsuranceType.InsuranceTypeBuilder().build());
 
@@ -55,21 +52,6 @@ class InsuranceTypeRepositoryGatewayTest {
 
         //Assert
         Assertions.assertThat(resultInsuranceType).isNotNull();
-    }
-
-    @Test
-    public void InsuranceTypeRepositoryGateway_findInsuranceTypeByName_ThrowInsuranceTypeNotFoundException() throws InsuranceTypeNotFoundException {
-        //Arrange
-        when(insuranceTypeLocalRepository.findByName(Mockito.any(String.class)))
-                .thenReturn(Optional.empty());
-
-        //Act
-        Throwable exception = catchThrowable(() -> {
-            InsuranceType resultInsuranceType = insuranceTypeRepositoryGateway.findInsuranceTypeByName(VIDA);
-        });
-
-        //Assert
-        Assertions.assertThat(exception).isInstanceOf(InsuranceTypeNotFoundException.class).hasMessage(CATEGORIA_NAO_ENCONTRADA_COM_O_NOME_VIDA);
     }
 
 }

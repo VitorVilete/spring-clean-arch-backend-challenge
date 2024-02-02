@@ -25,14 +25,10 @@ public class InsuranceTypeRepositoryGateway implements IInsuranceTypeGateway {
     @Override
     public InsuranceType findInsuranceTypeByName(String insuranceTypeName) throws InsuranceTypeNotFoundException {
         log.info("method=findInsuranceTypeByName, step=starting, name={}", insuranceTypeName);
-        Optional<InsuranceTypeLocalEntity> foundObject = insuranceTypeLocalRepository.findByName(insuranceTypeName);
-        if(foundObject.isPresent()) {
-            InsuranceType result = insuranceProductEntityMapper.toDomainObject(foundObject.get());
-            log.info("method=findInsuranceTypeByName, step=finished, result={}", result);
-            return result;
-        }else {
-            throw new InsuranceTypeNotFoundException("Categoria não encontrada com o nome: "+ insuranceTypeName);
-        }
+        InsuranceTypeLocalEntity foundObject = insuranceTypeLocalRepository.findByName(insuranceTypeName);
+        InsuranceType result = insuranceProductEntityMapper.toDomainObject(foundObject);
+        log.info("method=findInsuranceTypeByName, step=finished, result={}", result);
+        return result;
 
     }
 }
