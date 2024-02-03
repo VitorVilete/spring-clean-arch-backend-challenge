@@ -4,7 +4,7 @@
 ### Executando este projeto
 IMPORTANTE: Para execução desse projeto, é necessário ter o Docker instalado! Este projeto sobe uma instância um container com Zipkin via Docker Compose.
 
-Esta aplicação utiliza Java 17 e Maven, então certifique-se de que essas coisas estão instaladas e funcionando.
+Esta aplicação utiliza Java 17 e Maven, então certifique-se de que estes itens estão instalados e funcionando.
 
 Esta é uma aplicação criada com multimodules. Para saber mais como ela funciona, você pode conferir [este guia](https://spring.io/guides/gs/multi-module/).
 
@@ -20,7 +20,7 @@ Ou suba a aplicação BackendChallengeApplication na sua IDE de preferência.
 
 Uma vez que a aplicação estiver online, você pode ouví-la na porta 8080. O endpoint separado para o teste é o caminho PUT /produtos.
 
-Há uma collection do Insomnia do caminho assets/collection_insomnia.json
+Há uma collection do Insomnia no caminho assets/collection_insomnia.json
 
 ### Consultando Observability
 
@@ -30,9 +30,9 @@ O Zipkin está sendo utilizado como dashboard para o nosso observability pode se
 
 ### Consultando Database
 
-Esta aplicação utiliza o H2 Database para salvar os Produtos de Seguros.
+Esta aplicação utiliza o H2 Database para manter os Produtos de Seguros.
 
-O H2 Console pode ser acessado em http://localhost:8080/h2-console/. Está utilizando o usuário padrão(user "sa" sem senha), só selecionar "Connect"
+O H2 Console pode ser acessado em http://localhost:8080/h2-console/. Está utilizando o usuário padrão(user "sa" sem senha), só selecionar "Connect".
 
 ## Sobre a estrutura deste projeto ⚙
 ### Clean Architecture Base
@@ -50,7 +50,7 @@ Obs.: eu esbocei esse diagrama nas primeiras horas que eu recebi o teste e eu vo
 ![Screenshot of the detailed diagrams](./assets/images/layers_detailed.png)
 
 #### Presentation Layer 🟦
-No nosso projeto, esta camada irá conter classes que nos ajudarão a lidar com HTTP(Request/Response) e código de framework(spring-starter-web, actuator, validator, aop, zipkin). Trata a requisição e delega para a camada de Application via UseCase a fim de receber uma response.
+No nosso projeto, esta camada irá conter classes que nos ajudarão a lidar com HTTP(Request/Response) e código de framework(spring-starter-web, actuator, aop, zipkin). Recebe a requisição e delega para a camada de Application via UseCase a fim de receber uma response.
 
 #### Infrastructure Layer 🟩
 Esta camada terá a responsabilidade de manter os Interface Adapters(DBContext, Repository) longe das outras camadas. No nosso caso, essa camada expõe uma interface para a camada de Application, que recebe sua implementação por injeção de dependência.
@@ -103,9 +103,9 @@ Por fim, substituí o Repository original que consultava o BD por um Repository 
 #### Observabilidade (métricas, traces e logs) 🔍
 Este projeto utiliza o Observation API do pacote spring-boot-starter-aop para observar alguns pontos interessantes do projeto e traçar métricas.
 
-Neste projeto, eu estou usando o Zipkin para colher os dados desses métodos. 
-
 O projeto está colhendo os dados de execução da Controller e todos os Use Cases que estão sendo chamados.
+
+Neste projeto, eu estou usando o Zipkin para colher os dados desses métodos e organizar num dashboard.
 
 Os logs estão formatados e estão sendo logados no console da aplicação e em um arquivo de texto.
 
