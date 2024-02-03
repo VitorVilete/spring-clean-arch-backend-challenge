@@ -2,7 +2,7 @@
 
 ## Instruções 📝
 ### Executando este projeto
-IMPORTANTE: Para execução desse projeto, é necessário ter o Docker instalado! Este projeto sobe uma instância um container com Zipkin via Docker Compose.
+IMPORTANTE: Para execução desse projeto, é necessário ter o Docker instalado! Este projeto sobe um container com Zipkin via Docker Compose.
 
 Esta aplicação utiliza Java 17 e Maven, então certifique-se de que estes itens estão instalados e funcionando.
 
