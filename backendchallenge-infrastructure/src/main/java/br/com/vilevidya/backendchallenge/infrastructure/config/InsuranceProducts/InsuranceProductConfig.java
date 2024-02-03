@@ -2,17 +2,20 @@ package br.com.vilevidya.backendchallenge.infrastructure.config.InsuranceProduct
 
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.InsuranceProductDTOMapper;
+import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
 import br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceProducts.InsuranceProductEntityMapper;
 import br.com.vilevidya.backendchallenge.infrastructure.gateway.InsuranceProducts.InsuranceProductRepositoryGateway;
 import br.com.vilevidya.backendchallenge.infrastructure.persistence.InsuranceProducts.InsuranceProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class InsuranceProductConfig {
     @Bean
-    CreateInsuranceProductUseCase createInsuranceProduct(IInsuranceProductGateway insuranceProductGateway){
-        return new CreateInsuranceProductUseCase(insuranceProductGateway);
+    CreateInsuranceProductUseCase createInsuranceProduct(IInsuranceProductGateway insuranceProductGateway, InsuranceProductDTOMapper insuranceProductDTOMapper, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase){
+        return new CreateInsuranceProductUseCase(insuranceProductGateway, insuranceProductDTOMapper, findInsuranceTypeByNameUseCase);
     }
 
     @Bean
@@ -20,8 +23,17 @@ public class InsuranceProductConfig {
         return new InsuranceProductRepositoryGateway(insuranceProductRepository, insuranceProductEntityMapper);
     }
 
+    @Autowired
+    FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase;
+
     @Bean
     InsuranceProductEntityMapper insuranceProductEntityMapper(){
         return new InsuranceProductEntityMapper();
     }
+
+    @Bean
+    InsuranceProductDTOMapper insuranceProductDTOMapper(){
+        return new InsuranceProductDTOMapper();
+    }
+
 }

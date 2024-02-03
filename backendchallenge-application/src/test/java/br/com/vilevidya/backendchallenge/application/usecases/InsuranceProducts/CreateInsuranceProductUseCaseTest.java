@@ -1,6 +1,11 @@
 package br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts;
 
 import br.com.vilevidya.backendchallenge.application.interfaces.InsuranceProducts.IInsuranceProductGateway;
+import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.InsuranceProductDTOMapper;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductRequest;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductResponse;
+import br.com.vilevidya.backendchallenge.application.usecases.exceptions.InsuranceTypeNotFoundException;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
 import org.assertj.core.api.Assertions;
@@ -25,6 +30,12 @@ class CreateInsuranceProductUseCaseTest {
     @Mock
     IInsuranceProductGateway IInsuranceProductGateway;
 
+    @Mock
+    InsuranceProductDTOMapper insuranceProductDTOMapper;
+
+    @Mock
+    FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase;
+
     @Autowired
     @InjectMocks
     CreateInsuranceProductUseCase createInsuranceProductUseCase;
@@ -37,6 +48,11 @@ class CreateInsuranceProductUseCaseTest {
     InsuranceType insuranceType;
     InsuranceProduct insuranceProduct;
     InsuranceProduct insuranceProductWithoutTaxes;
+
+    PutInsuranceProductResponse putInsuranceProductResponse;
+
+    PutInsuranceProductRequest putInsuranceProductRequest;
+
 
     private double calculateTaxes(InsuranceProduct insuranceProduct){
         double result;
@@ -65,6 +81,18 @@ class CreateInsuranceProductUseCaseTest {
                 .setIofTaxValue(0)
                 .setPisTaxValue(0)
                 .build();
+
+        putInsuranceProductResponse = new PutInsuranceProductResponse(
+                UUID.randomUUID().toString(),
+                "Seguro Auto Individual",
+                "AUTO",
+                50.00,
+                null);
+        putInsuranceProductRequest = new PutInsuranceProductRequest(
+                "Seguro Auto Individual",
+                "AUTO",
+                50.00,
+                null);
         insuranceProduct = new InsuranceProduct.InsuranceProductBuilder()
                 .setInsuranceType(insuranceType)
                 .setId(insuranceProductId)
@@ -82,13 +110,17 @@ class CreateInsuranceProductUseCaseTest {
     }
 
     @Test
-    public void CreateInsuranceProductUseCaseTest_createInsuranceProduct_shouldCallIInsuranceProductGatewayOnce(){
+    public void CreateInsuranceProductUseCaseTest_createInsuranceProduct_shouldCallIInsuranceProductGatewayOnce() throws InsuranceTypeNotFoundException {
         //Arrange
         when(IInsuranceProductGateway.createInsuranceProduct(Mockito.any(InsuranceProduct.class)))
                 .thenReturn(insuranceProduct);
+        when(findInsuranceTypeByNameUseCase.findInsuranceTypeByName(Mockito.any(String.class)))
+                .thenReturn(insuranceType);
+        when(insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(putInsuranceProductRequest, insuranceType))
+                .thenReturn(insuranceProduct);
 
         //Act
-        InsuranceProduct result = createInsuranceProductUseCase.createInsuranceProduct(insuranceProduct);
+        PutInsuranceProductResponse result = createInsuranceProductUseCase.createInsuranceProduct(putInsuranceProductRequest);
 
         //Assert
         verify(IInsuranceProductGateway, times(1)).createInsuranceProduct(Mockito.any(InsuranceProduct.class));

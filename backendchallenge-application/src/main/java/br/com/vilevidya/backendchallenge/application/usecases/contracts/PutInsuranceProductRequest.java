@@ -1,4 +1,4 @@
-package br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts;
+package br.com.vilevidya.backendchallenge.application.usecases.contracts;
 
 import jakarta.validation.constraints.*;
 

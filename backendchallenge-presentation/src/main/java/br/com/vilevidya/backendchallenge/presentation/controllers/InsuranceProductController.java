@@ -1,10 +1,8 @@
 package br.com.vilevidya.backendchallenge.presentation.controllers;
 
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
-import br.com.vilevidya.backendchallenge.application.usecases.InsuranceTypes.FindInsuranceTypeByNameUseCase;
-import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper;
-import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductRequest;
-import br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.PutInsuranceProductResponse;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductRequest;
+import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductResponse;
 import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -22,13 +20,9 @@ public class InsuranceProductController {
 
     private static final Logger log = LoggerFactory.getLogger(InsuranceProductController.class);
     private final CreateInsuranceProductUseCase createInsuranceProductUseCase;
-    private final FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase;
-    private final InsuranceProductDTOMapper insuranceProductDTOMapper;
 
-    public InsuranceProductController(CreateInsuranceProductUseCase createInsuranceProductUseCase, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase, InsuranceProductDTOMapper insuranceProductDTOMapper) {
+    public InsuranceProductController(CreateInsuranceProductUseCase createInsuranceProductUseCase) {
         this.createInsuranceProductUseCase = createInsuranceProductUseCase;
-        this.findInsuranceTypeByNameUseCase = findInsuranceTypeByNameUseCase;
-        this.insuranceProductDTOMapper = insuranceProductDTOMapper;
     }
 
     @PutMapping
@@ -39,16 +33,8 @@ public class InsuranceProductController {
     )
     public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request) throws Exception {
         log.info("method=create, step=starting, request={}", request);
-        PutInsuranceProductResponse response = insuranceProductDTOMapper.toResponse(
-                createInsuranceProductUseCase.createInsuranceProduct(
-                        insuranceProductDTOMapper.toInsuranceProductWithInsuranceType(
-                                request,
-                                findInsuranceTypeByNameUseCase.findInsuranceTypeByName(request.getCategoria())
-                        )
-                ));
+        PutInsuranceProductResponse response = createInsuranceProductUseCase.createInsuranceProduct(request);
         log.info("method=create, step=finished, response={}", response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-
 }

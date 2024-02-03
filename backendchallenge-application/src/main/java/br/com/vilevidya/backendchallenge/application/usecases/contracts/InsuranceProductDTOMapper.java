@@ -1,9 +1,7 @@
-package br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts;
+package br.com.vilevidya.backendchallenge.application.usecases.contracts;
 
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceProducts.InsuranceProduct;
 import br.com.vilevidya.backendchallenge.domain.entity.InsuranceTypes.InsuranceType;
-
-import java.util.UUID;
 
 public class InsuranceProductDTOMapper {
     public PutInsuranceProductResponse toResponse(InsuranceProduct insuranceProduct){
