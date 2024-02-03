@@ -112,26 +112,20 @@ Os logs estão formatados e estão sendo logados no console da aplicação e em 
 É possível realizar o tracing das chamadas da aplicação uma vez que os logs possuem um spanID e parentID.
 
 ## Pontos de Melhoria 🦸‍♀️
-### Uso de Generics para implementação de comportamento comum
-É possível refatorar algumas classes como classes de Response ou Exception para que elas herdem de alguma classe comportamentos comuns.
-Existe [este exemplo](https://medium.com/@aedemirsen/generic-api-response-with-spring-boot-175434952086) ilustrando a implementação de Generics para implementar uma "Response" genérica e que pode ser utilizada em conjunto com o ResponseEntity, habilitando também o uso do ExceptionHandler em cima de tudo isso.
-
-### Qualidade dos Testes Unitários
-Enxergo que é possível uma melhoria nos testes unitários. Deve haver uma forma mais limpa de escrever os testes aproveitando melhor as bibliotecas de teste.
-
-O código está coeso e seguindo a estrutura Arrange -> Act -> Assert.
-
-Por fim, o coverage está alto e os cenários estão cobertos.
 
 ### Uso do Testcontainers nos testes de integração
 Recomendo a implementação do Testcontainers no caso de um projeto utilizar um banco de dados que não seja carregado em memória.
 
 Não se aplica ao nosso projeto mas é um ponto a se considerar.
 
+Para mais informações, segue [um guia](https://testcontainers.com/guides/testing-spring-boot-rest-api-using-testcontainers/) de como implementar Testcontainers em uma aplicação Springboot.
+
 ## Considerações Finais 👨‍💻
 Estou satisfeito com o resultado do projeto.
 
 A arquitetura está bem definida e o código segue os princípios de SOLID.
+
+O código está bem coberto com >95% das linhas testadas com testes unitários e testes de integração.
 
 Está em um estado de "entregue", funcionando e com melhorias mapeadas.
 
