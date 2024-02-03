@@ -9,29 +9,15 @@ public class GenericResponse<T> {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
 
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public T getData() {
         return data;
     }
 
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public static <T> GenericResponse<T> empty() {
-        return success(null);
-    }
 
     public GenericResponse(boolean success, String message, T data) {
         this.success = success;
@@ -43,8 +29,7 @@ public class GenericResponse<T> {
         this.success = success;
         this.message = message;
     }
-
-    public static <T> GenericResponse<T> empty(T data) {
+    public static <T> GenericResponse<T> empty() {
         return success(null);
     }
 

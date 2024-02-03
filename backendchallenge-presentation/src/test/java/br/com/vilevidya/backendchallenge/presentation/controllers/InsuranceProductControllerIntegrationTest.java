@@ -155,13 +155,13 @@ public class InsuranceProductControllerIntegrationTest {
     }
 
     @Test
-    public void InsuranceProductController_Create_ReturnInternalServerErrorInsuranceTypeNotFoundException() throws Exception {
+    public void InsuranceProductController_Create_ReturnBadRequestInsuranceTypeNotFoundException() throws Exception {
         MvcResult response = mockMvc.perform(put(insuranceProductPutCreatePath)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(putInsuranceProductInsuranceTypeNotFoundException)))
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn();
 
         Assertions.assertThat(response.getResolvedException() instanceof InsuranceTypeNotFoundException).isTrue();

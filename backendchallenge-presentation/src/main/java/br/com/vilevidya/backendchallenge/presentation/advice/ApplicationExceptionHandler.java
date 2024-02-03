@@ -33,7 +33,7 @@ public class ApplicationExceptionHandler {
         //return errorMap;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InsuranceTypeNotFoundException.class)
     public GenericResponse<String> handleBusinessException(InsuranceTypeNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
