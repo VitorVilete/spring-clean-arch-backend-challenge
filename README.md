@@ -6,9 +6,17 @@ IMPORTANTE: Para execução desse projeto, é necessário ter o Docker instalado
 
 Esta aplicação utiliza Java 17 e Maven, então certifique-se de que essas coisas estão instaladas e funcionando.
 
+Esta é uma aplicação criada com multimodules. Para saber mais como ela funciona, você pode conferir [este guia](https://spring.io/guides/gs/multi-module/).
+
 A classe com o método "main" dessa aplicação pode ser encontrada em "backendchallenge-presentation/src/main/java/br/com/vilevidya/BackendChallengeApplication.java".
 
-Suba a aplicação BackendChallengeApplication na sua IDE de preferência ou pelo "mvn spring-boot:run"
+### Subindo a aplicação
+
+Execute o seguinte comando na raiz(spring-clean-arch-backend-challenge/) do projeto:
+
+> ./mvnw install && ./mvnw spring-boot:run -pl backendchallenge-presentation
+
+Ou suba a aplicação BackendChallengeApplication na sua IDE de preferência.
 
 Uma vez que a aplicação estiver online, você pode ouví-la na porta 8080. O endpoint separado para o teste é o caminho PUT /produtos.
 
