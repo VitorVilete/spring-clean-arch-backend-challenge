@@ -25,7 +25,7 @@ public class InsuranceProductController {
     private final FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase;
     private final InsuranceProductDTOMapper insuranceProductDTOMapper;
 
-    public InsuranceProductController(CreateInsuranceProductUseCase createInsuranceProductUseCase, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase, br.com.vilevidya.backendchallenge.presentation.contracts.InsuranceProducts.InsuranceProductDTOMapper insuranceProductDTOMapper) {
+    public InsuranceProductController(CreateInsuranceProductUseCase createInsuranceProductUseCase, FindInsuranceTypeByNameUseCase findInsuranceTypeByNameUseCase, InsuranceProductDTOMapper insuranceProductDTOMapper) {
         this.createInsuranceProductUseCase = createInsuranceProductUseCase;
         this.findInsuranceTypeByNameUseCase = findInsuranceTypeByNameUseCase;
         this.insuranceProductDTOMapper = insuranceProductDTOMapper;

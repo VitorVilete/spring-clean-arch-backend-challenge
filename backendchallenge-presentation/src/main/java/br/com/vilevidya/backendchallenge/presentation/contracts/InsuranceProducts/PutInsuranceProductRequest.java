@@ -21,33 +21,19 @@ public class PutInsuranceProductRequest {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCategoria() {
         return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public Number getPreco_base() {
         return preco_base;
     }
 
-    public void setPreco_base(Number preco_base) {
-        this.preco_base = preco_base;
-    }
 
     public Number getPreco_tarifado() {
         return preco_tarifado;
     }
 
-    public void setPreco_tarifado(Number preco_tarifado) {
-        this.preco_tarifado = preco_tarifado;
-    }
 
     public PutInsuranceProductRequest(String nome, String categoria, Number preco_base, Number preco_tarifado) {
         this.nome = nome;

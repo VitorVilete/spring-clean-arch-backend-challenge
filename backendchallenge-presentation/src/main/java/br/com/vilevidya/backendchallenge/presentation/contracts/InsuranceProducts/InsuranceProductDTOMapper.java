@@ -16,16 +16,6 @@ public class InsuranceProductDTOMapper {
         );
     }
 
-    public InsuranceProduct toInsuranceProduct(PutInsuranceProductRequest request){
-        return new InsuranceProduct.InsuranceProductBuilder(
-                new InsuranceType(request.getCategoria(), 0, 0, 0),
-             null,
-                request.getNome(),
-                request.getPreco_base().doubleValue(),
-                request.getPreco_tarifado() != null ? request.getPreco_tarifado().doubleValue() : 0
-        ).build();
-    }
-
     public InsuranceProduct toInsuranceProductWithInsuranceType(PutInsuranceProductRequest request, InsuranceType insuranceType){
         return new InsuranceProduct.InsuranceProductBuilder(
                 insuranceType,
