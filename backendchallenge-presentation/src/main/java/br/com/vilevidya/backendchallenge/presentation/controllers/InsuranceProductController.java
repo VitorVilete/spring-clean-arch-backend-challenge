@@ -3,6 +3,7 @@ package br.com.vilevidya.backendchallenge.presentation.controllers;
 import br.com.vilevidya.backendchallenge.application.usecases.InsuranceProducts.CreateInsuranceProductUseCase;
 import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductRequest;
 import br.com.vilevidya.backendchallenge.application.usecases.contracts.PutInsuranceProductResponse;
+import br.com.vilevidya.backendchallenge.presentation.contracts.GenericResponse;
 import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -31,10 +32,10 @@ public class InsuranceProductController {
             contextualName = "InsuranceProductController.create",
             lowCardinalityKeyValues = {"customField", "customValue"}
     )
-    public ResponseEntity<PutInsuranceProductResponse> create(@RequestBody @Valid PutInsuranceProductRequest request) throws Exception {
+    public ResponseEntity<GenericResponse<PutInsuranceProductResponse>> create(@RequestBody @Valid PutInsuranceProductRequest request) throws Exception {
         log.info("method=create, step=starting, request={}", request);
         PutInsuranceProductResponse response = createInsuranceProductUseCase.createInsuranceProduct(request);
         log.info("method=create, step=finished, response={}", response);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(GenericResponse.success(response), HttpStatus.CREATED);
     }
 }

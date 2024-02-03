@@ -1,6 +1,7 @@
 package br.com.vilevidya.backendchallenge.presentation.advice;
 
 import br.com.vilevidya.backendchallenge.application.usecases.exceptions.InsuranceTypeNotFoundException;
+import br.com.vilevidya.backendchallenge.presentation.contracts.GenericResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,25 +17,27 @@ public class ApplicationExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleArgumentNotValid(MethodArgumentNotValidException ex){
+    public GenericResponse<String> handleArgumentNotValid(MethodArgumentNotValidException ex){
         Map<String, String> errorMap = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
-        return errorMap;
+        return GenericResponse.error(errorMap.toString());
+        //return errorMap;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public Map<String,String> handleArgumentNotValid(HttpMessageNotReadableException ex){
+    public GenericResponse<String> handleArgumentNotValid(HttpMessageNotReadableException ex){
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("mensagem_erro:", ex.getMessage());
-        return errorMap;
+        return GenericResponse.error(errorMap.toString());
+        //return errorMap;
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(InsuranceTypeNotFoundException.class)
-    public Map<String, String> handleBusinessException(InsuranceTypeNotFoundException ex) {
+    public GenericResponse<String> handleBusinessException(InsuranceTypeNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("mensagem_erro", ex.getMessage());
-        return errorMap;
+        return GenericResponse.error(errorMap.toString());
     }
 }

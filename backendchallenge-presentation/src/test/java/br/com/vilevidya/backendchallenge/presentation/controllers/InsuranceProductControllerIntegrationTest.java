@@ -67,8 +67,8 @@ public class InsuranceProductControllerIntegrationTest {
     public void init(){
         UUID_REGEX = Pattern
                 .compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
-        precoTarifadoPath = "preco_tarifado";
-        idPath = "id";
+        precoTarifadoPath = "$.data.preco_tarifado";
+        idPath = "$.data.id";
         insuranceProductPutCreatePath = "/produtos";
         putInsuranceProductResponse = new PutInsuranceProductResponse(
                 UUID.randomUUID().toString(),

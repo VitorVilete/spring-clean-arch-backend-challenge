@@ -5,8 +5,10 @@ import jakarta.validation.constraints.*;
 public class PutInsuranceProductRequest {
 
     @NotBlank
+    @Size(min=3, max = 100)
     String nome;
     @NotBlank
+    @Size(min=3, max = 100)
     String categoria;
 
     @NotNull
