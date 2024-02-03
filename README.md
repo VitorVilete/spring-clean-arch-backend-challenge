@@ -123,6 +123,11 @@ O código está coeso e seguindo a estrutura Arrange -> Act -> Assert.
 
 Por fim, o coverage está alto e os cenários estão cobertos.
 
+### Uso do Testcontainers nos testes de integração
+Recomendo a implementação do Testcontainers no caso de um projeto utilizar um banco de dados que não seja carregado em memória.
+
+Não se aplica ao nosso projeto mas é um ponto a se considerar.
+
 ## Considerações Finais 👨‍💻
 Estou satisfeito com o resultado do projeto.
 
